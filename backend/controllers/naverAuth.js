@@ -21,14 +21,31 @@
  * 
  */
 
-const express = require('express')
+const passport = require('passport')
+const request = require('request-promise')
 
-const controller = require('../controllers/kakaoLoginController')
+module.exports.login = passport.authenticate('naver')
 
-const router = express.Router()
+module.exports.logout = async(req, res) => {
+  if (typeof(req.user) === 'undefined'){
+    //res.status(400).json({status: 'fail'})
+    res.redirect('/')
+    return
+  }
+  const option = {
+    uri: 'https://nid.naver.com/oauth2.0/token?grant_type=delete&client_id=' + 'r61oHeThSeN_fa2_eofN' + '&client_secret=' + 'GQlWWJzE2m' + '&access_token=' + req.user.token + '&service_provider=NAVER',
+    method: 'GET',
+    json: true
+  }
+  const out = await request(option, (error, res, body) => {
+    return res
+  })
+  req.logout((error) => { if (error) throw error})
+  //res.status(200).json({status: 'success'})
+  res.redirect('/')
+}
 
-router.get('/login', controller.login)
-router.get('/logout', controller.logout)
-router.get('/callback', controller.callback)
-
-module.exports = router
+module.exports.callback = passport.authenticate('naver', {
+  successRedirect: '/',
+  failureRedirect: '/',
+})
