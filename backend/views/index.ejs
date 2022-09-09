@@ -1,0 +1,15 @@
+<% if (typeof(session) !== 'undefined'){ %>
+  <a id="logout" href="/auth/kakao/logout">
+    카카오 로그아웃
+  </a>
+  <br>
+  <%= session.token %>
+  <br>
+  <%= session.id %>
+  <br>
+  <%= session.username %>
+<% }else{ %>
+  <a id="login" href="/auth/kakao/login">
+    카카오 로그인
+  </a>
+<% } %>
