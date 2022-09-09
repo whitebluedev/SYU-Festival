@@ -36,8 +36,8 @@ const mainLogger = require('./utils/mainLogger')
 const app = express()
 
 const passport = require('passport')
-const KakaoStrategy = require('passport-kakao').Strategy
-const NaverStrategy = require('passport-naver-v2').Strategy
+const KakaoStrategy = require('passport-kakao').Strategy //todo
+const NaverStrategy = require('passport-naver-v2').Strategy //todo
 
 passport.use(new KakaoStrategy({
   clientID: '220de28dc17371d455e627e1f440924c', //key

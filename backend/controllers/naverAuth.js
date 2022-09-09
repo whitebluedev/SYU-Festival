@@ -32,14 +32,17 @@ module.exports.logout = async(req, res) => {
     res.redirect('/')
     return
   }
+  
   const option = {
     uri: 'https://nid.naver.com/oauth2.0/token?grant_type=delete&client_id=' + 'r61oHeThSeN_fa2_eofN' + '&client_secret=' + 'GQlWWJzE2m' + '&access_token=' + req.user.token + '&service_provider=NAVER',
     method: 'GET',
     json: true
   }
+
   const out = await request(option, (error, res, body) => {
     return res
   })
+
   req.logout((error) => { if (error) throw error})
   //res.status(200).json({status: 'success'})
   res.redirect('/')
