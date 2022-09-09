@@ -21,52 +21,38 @@
  * 
  */
 
-const HTTP_PORT = 1234
-
-const express = require('express')
-const expressSession = require('express-session')
-const http = require('http')
-const logger = require('morgan')
 const passport = require('passport')
 
-const authConfig = require('./config/auth')
-const indexRouter = require('./routes/index')
-const authRouter = require('./routes/authRoute')
-const loggerUtil = require('./utils/logger')
+const KakaoStrategy = require('passport-kakao').Strategy
+const NaverStrategy = require('passport-naver-v2').Strategy
 
-const app = express()
+module.exports.kakaoClientID = '220de28dc17371d455e627e1f440924c'
+module.exports.kakaoClientSecret = ''
+module.exports.naverClientID = 'r61oHeThSeN_fa2_eofN'
+module.exports.naverClientSecret = 'GQlWWJzE2m'
 
-app.set('views', __dirname + '/views')
-app.set('view engine', 'ejs')
-
-app.use(logger('dev'))
-
-app.use(express.json())
-app.use(express.urlencoded({ extended: false }))
-
-app.use(expressSession({
-  secret: '1234',
-  resave: false,
-  saveUninitialized: true,
-  cookie: {
-    secure: false,
-    maxAge: 1000 * 60 * 60 * 12 // 12 hours
-  }
-}))
-
-authConfig.init()
-
-app.use(passport.initialize())
-app.use(passport.session())
-
-app.use('/', express.static(__dirname + '/public'))
-app.use('/', indexRouter)
-app.use('/auth', authRouter)
-
-app.use('*', (req, res) => {
-  res.status(404).send('404')
-})
-
-http.createServer(app).listen(HTTP_PORT, '0.0.0.0')
-
-loggerUtil.getLogo()
+module.exports.init = () => {
+  passport.use(new KakaoStrategy({
+    clientID: this.kakaoClientID,
+    clientSecret: this.kakaoClientSecret,
+    callbackURL: '/auth/kakao/callback',
+  }, async (accessToken, refreshToken, profile, done) => {
+    done(null, { type: 'kakao', token: accessToken, id: profile.id, username: profile.username, _json: profile._json })
+  }))
+  
+  passport.use(new NaverStrategy({
+    clientID: this.naverClientID,
+    clientSecret: this.naverClientSecret,
+    callbackURL: '/auth/naver/callback',
+  }, async (accessToken, refreshToken, profile, done) => {
+    done(null, { type: 'naver', token: accessToken, id: profile.id, username: profile.name, _json: profile._json })
+  }))
+  
+  passport.serializeUser((user, done) => {
+    done(null, user)
+  })
+  
+  passport.deserializeUser((obj, done) => {
+    done(null, obj)
+  })
+}

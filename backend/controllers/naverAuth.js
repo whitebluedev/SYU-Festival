@@ -24,6 +24,8 @@
 const passport = require('passport')
 const request = require('request-promise')
 
+const authConfig = require('../config/auth')
+
 module.exports.login = passport.authenticate('naver')
 
 module.exports.logout = async(req, res) => {
@@ -34,7 +36,7 @@ module.exports.logout = async(req, res) => {
   }
   
   const option = {
-    uri: 'https://nid.naver.com/oauth2.0/token?grant_type=delete&client_id=' + 'r61oHeThSeN_fa2_eofN' + '&client_secret=' + 'GQlWWJzE2m' + '&access_token=' + req.user.token + '&service_provider=NAVER',
+    uri: 'https://nid.naver.com/oauth2.0/token?grant_type=delete&client_id=' + authConfig.naverClientID + '&client_secret=' + authConfig.naverClientSecret + '&access_token=' + req.user.token + '&service_provider=NAVER',
     method: 'GET',
     json: true
   }

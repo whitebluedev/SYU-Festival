@@ -1,7 +1,15 @@
 <% if (typeof(session) !== 'undefined'){ %>
-  <a id="logout" href="/auth/kakao/logout">
-    카카오 로그아웃
-  </a>
+  <% if (session.type === 'kakao'){ %>
+    <a id="logout" href="/auth/kakao/logout">
+      카카오 로그아웃
+    </a>
+  <% } else if (session.type === 'naver'){ %>
+    <a id="logout" href="/auth/naver/logout">
+      네이버 로그아웃
+    </a>
+  <% } %>
+  <br>
+  <%= session.type %>
   <br>
   <%= session.token %>
   <br>
@@ -11,5 +19,11 @@
 <% }else{ %>
   <a id="login" href="/auth/kakao/login">
     카카오 로그인
+  </a>
+  <br>
+  또는
+  <br>
+  <a id="login" href="/auth/naver/login">
+    네이버 로그인
   </a>
 <% } %>

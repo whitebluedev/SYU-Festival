@@ -32,6 +32,7 @@ module.exports.logout = async(req, res) => {
     res.redirect('/')
     return
   }
+  
   const option = {
     uri: 'https://kapi.kakao.com/v1/user/unlink',
     method: 'POST',
@@ -40,9 +41,11 @@ module.exports.logout = async(req, res) => {
     },
     json: true
   }
+
   const out = await request(option, (error, res, body) => {
     return res
   })
+
   req.logout((error) => { if (error) throw error})
   //res.status(200).json({status: 'success'})
   res.redirect('/')
