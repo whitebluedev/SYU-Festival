@@ -29,7 +29,8 @@ const http = require('http')
 const logger = require('morgan')
 
 const indexRouter = require('./routes/index')
-const kakaoLoginRouter = require('./routes/kakaoLogin')
+const kakaoLoginRouter = require('./routes/kakaoLoginRoute')
+
 const mainLogger = require('./utils/mainLogger')
 
 const app = express()
@@ -38,11 +39,9 @@ const passport = require('passport')
 const KakaoStrategy = require('passport-kakao').Strategy
 
 passport.use(new KakaoStrategy({
-  clientID: '', //key
+  clientID: '220de28dc17371d455e627e1f440924c', //key
   callbackURL: '/auth/kakao/callback',
 }, async (accessToken, refreshToken, profile, done) => {
-  console.log(accessToken)
-  console.log(profile)
   done(null, { token: accessToken, id: profile.id, username: profile.username, _json: profile._json})
 }))
 

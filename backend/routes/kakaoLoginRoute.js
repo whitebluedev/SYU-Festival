@@ -23,7 +23,7 @@
 
 const express = require('express')
 
-const controller = require('../controllers/controller')
+const controller = require('../controllers/kakaoLoginController')
 
 const router = express.Router()
 

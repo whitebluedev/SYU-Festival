@@ -21,6 +21,34 @@
  * 
  */
 
-module.exports.index = (req, res) => {
-  res.render('index', { session: req.user })
+const passport = require('passport')
+const request = require('request-promise')
+
+module.exports.login = passport.authenticate('kakao')
+
+module.exports.logout = async(req, res) => {
+  if (typeof(req.user) === 'undefined'){
+    //res.status(400).json({status: 'fail'})
+    res.redirect('/')
+    return
+  }
+  const option = {
+    uri: 'https://kapi.kakao.com/v1/user/unlink',
+    method: 'POST',
+    headers: {
+      'Authorization' : 'Bearer ' + req.user.token
+    },
+    json: true
+  }
+  const out = await request(option, (error, res, body) => {
+    return res
+  })
+  req.logout((error) => { if (error) throw error})
+  //res.status(200).json({status: 'success'})
+  res.redirect('/')
 }
+
+module.exports.callback = passport.authenticate('kakao', {
+  successRedirect: '/',
+  failureRedirect: '/',
+})
