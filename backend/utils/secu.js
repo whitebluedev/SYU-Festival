@@ -21,19 +21,16 @@
  * 
  */
 
-const express = require('express')
+module.exports.mysqlUserID = ''
+module.exports.mysqlUserPWD = ''
 
-const kakaoAuth = require('../controllers/kakaoAuth')
-const naverAuth = require('../controllers/naverAuth')
+module.exports.sessionSecret = 'c3l1IUAjJA=='
 
-const router = express.Router()
+module.exports.sslCA = ''
+module.exports.sslKEY = ''
+module.exports.sslCERT = ''
 
-router.get('/kakao/login', kakaoAuth.login)
-router.get('/kakao/logout', kakaoAuth.logout)
-router.get('/kakao/callback', kakaoAuth.callback)
-
-router.get('/naver/login', naverAuth.login)
-router.get('/naver/logout', naverAuth.logout)
-router.get('/naver/callback', naverAuth.callback)
-
-module.exports = router
+module.exports.kakaoClientID = 'MjIwZGUyOGRjMTczNzFkNDU1ZTYyN2UxZjQ0MDkyNGM='
+module.exports.kakaoClientSecret = ''
+module.exports.naverClientID = 'cjYxb0hlVGhTZU5fZmEyX2VvZk4='
+module.exports.naverClientSecret = 'R1FsV1dKekUybQ=='

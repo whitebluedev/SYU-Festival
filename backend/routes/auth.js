@@ -21,21 +21,19 @@
  * 
  */
 
-const mysql = require('mysql')
+const express = require('express')
 
-const secuUtil = require('../utils/secu')
+const kakaoAuth = require('../controllers/kakaoAuth')
+const naverAuth = require('../controllers/naverAuth')
 
-const connection = mysql.createPool({
-  host: '127.0.0.1',
-  port: 3306,
-  user: Buffer.from(secuUtil.mysqlUserID, 'base64').toString('utf8'),
-  password: Buffer.from(secuUtil.mysqlUserID, 'base64').toString('utf8'),
-  database: '',
-  dateStrings: 'date'
-})
+const router = express.Router()
 
-connection.getConnection((error) => {
-  if (error) throw error
-})
+router.get('/kakao/login', kakaoAuth.loginCheck, kakaoAuth.login)
+router.get('/kakao/logout', kakaoAuth.logoutCheck, kakaoAuth.logout)
+router.get('/kakao/callback', kakaoAuth.loginCheck, kakaoAuth.callback)
 
-module.exports = connection
+router.get('/naver/login', naverAuth.loginCheck, naverAuth.login)
+router.get('/naver/logout', naverAuth.logoutCheck, naverAuth.logout)
+router.get('/naver/callback', naverAuth.loginCheck, naverAuth.callback)
+
+module.exports = router

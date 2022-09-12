@@ -22,37 +22,33 @@
  */
 
 const passport = require('passport')
-
 const KakaoStrategy = require('passport-kakao').Strategy
 const NaverStrategy = require('passport-naver-v2').Strategy
 
-module.exports.kakaoClientID = '220de28dc17371d455e627e1f440924c'
-module.exports.kakaoClientSecret = ''
-module.exports.naverClientID = 'r61oHeThSeN_fa2_eofN'
-module.exports.naverClientSecret = 'GQlWWJzE2m'
+const secuUtil = require('../utils/secu')
 
 module.exports.init = () => {
   passport.use(new KakaoStrategy({
-    clientID: this.kakaoClientID,
-    clientSecret: this.kakaoClientSecret,
+    clientID: Buffer.from(secuUtil.kakaoClientID, 'base64').toString('utf8'),
+    clientSecret: Buffer.from(secuUtil.kakaoClientSecret, 'base64').toString('utf8'),
     callbackURL: '/auth/kakao/callback',
   }, async (accessToken, refreshToken, profile, done) => {
     done(null, { type: 'kakao', token: accessToken, id: profile.id, username: profile.username, _json: profile._json })
   }))
   
   passport.use(new NaverStrategy({
-    clientID: this.naverClientID,
-    clientSecret: this.naverClientSecret,
+    clientID: Buffer.from(secuUtil.naverClientID, 'base64').toString('utf8'),
+    clientSecret: Buffer.from(secuUtil.naverClientSecret, 'base64').toString('utf8'),
     callbackURL: '/auth/naver/callback',
   }, async (accessToken, refreshToken, profile, done) => {
     done(null, { type: 'naver', token: accessToken, id: profile.id, username: profile.name, _json: profile._json })
   }))
   
-  passport.serializeUser((user, done) => {
+  passport.serializeUser((user, done) => { // login check
     done(null, user)
   })
   
-  passport.deserializeUser((obj, done) => {
-    done(null, obj)
+  passport.deserializeUser((user, done) => { // login after check
+    done(null, user)
   })
 }

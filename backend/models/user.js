@@ -23,3 +23,10 @@
 
 const mysql = require('../config/mysql')
 
+/*module.exports.test = () => {
+  mysql.query('SELECT * FROM test', (error, results, fields) => {
+    if (error) throw error
+    mysql.release()
+    return results
+  })
+}*/

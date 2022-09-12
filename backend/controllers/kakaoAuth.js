@@ -24,15 +24,34 @@
 const passport = require('passport')
 const request = require('request-promise')
 
-module.exports.login = passport.authenticate('kakao')
+module.exports.loginCheck = (req, res, next) => {
+  if (typeof(req.user) !== 'undefined'){
+    //res.status(400).json({ status: 'fail' })
+    res.redirect('/')
+    return
+  }
+  next()
+}
 
-module.exports.logout = async(req, res) => {
+module.exports.logoutCheck = (req, res, next) => {
   if (typeof(req.user) === 'undefined'){
-    //res.status(400).json({status: 'fail'})
+    //res.status(400).json({ status: 'fail' })
+    res.redirect('/')
+    return
+  }
+
+  if (req.user.type !== 'kakao'){
+    //res.status(400).json({ status: 'fail' })
     res.redirect('/')
     return
   }
   
+  next()
+}
+
+module.exports.login = passport.authenticate('kakao')
+
+module.exports.logout = async(req, res) => {
   const option = {
     uri: 'https://kapi.kakao.com/v1/user/unlink',
     method: 'POST',
@@ -42,12 +61,10 @@ module.exports.logout = async(req, res) => {
     json: true
   }
 
-  const out = await request(option, (error, res, body) => {
-    return res
-  })
+  const out = await request(option, (error, res, body) => { return res })
 
-  req.logout((error) => { if (error) throw error})
-  //res.status(200).json({status: 'success'})
+  req.logout((error) => { if (error) throw error })
+  //res.status(200).json({ status: 'success' })
   res.redirect('/')
 }
 

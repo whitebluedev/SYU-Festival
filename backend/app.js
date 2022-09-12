@@ -30,9 +30,10 @@ const logger = require('morgan')
 const passport = require('passport')
 
 const authConfig = require('./config/auth')
+const authRouter = require('./routes/auth')
 const indexRouter = require('./routes/index')
-const authRouter = require('./routes/authRoute')
 const loggerUtil = require('./utils/logger')
+const secuUtil = require('./utils/secu')
 
 const app = express()
 
@@ -45,7 +46,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 app.use(expressSession({
-  secret: '1234',
+  secret: Buffer.from(secuUtil.sessionSecret, 'base64').toString('utf8'),
   resave: false,
   saveUninitialized: true,
   cookie: {
@@ -62,10 +63,7 @@ app.use(passport.session())
 app.use('/', express.static(__dirname + '/public'))
 app.use('/', indexRouter)
 app.use('/auth', authRouter)
-
-app.use('*', (req, res) => {
-  res.status(404).send('404')
-})
+app.use('*', (req, res) => { res.status(404).send('404') })
 
 http.createServer(app).listen(HTTP_PORT, '0.0.0.0')
 

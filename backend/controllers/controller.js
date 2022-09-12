@@ -21,6 +21,12 @@
  * 
  */
 
+//const user = require('../models/user')
+
 module.exports.index = (req, res) => {
   res.render('index', { session: req.user })
 }
+
+/*module.exports.test = (req, res) => {
+  res.json(user.test())
+}*/

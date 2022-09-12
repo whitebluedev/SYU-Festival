@@ -24,29 +24,46 @@
 const passport = require('passport')
 const request = require('request-promise')
 
-const authConfig = require('../config/auth')
+const secuUtil = require('../utils/secu')
 
-module.exports.login = passport.authenticate('naver')
+module.exports.loginCheck = (req, res, next) => {
+  if (typeof(req.user) !== 'undefined'){
+    //res.status(400).json({ status: 'fail' })
+    res.redirect('/')
+    return
+  }
+  next()
+}
 
-module.exports.logout = async(req, res) => {
+module.exports.logoutCheck = (req, res, next) => {
   if (typeof(req.user) === 'undefined'){
-    //res.status(400).json({status: 'fail'})
+    //res.status(400).json({ status: 'fail' })
+    res.redirect('/')
+    return
+  }
+
+  if (req.user.type !== 'naver'){
+    //res.status(400).json({ status: 'fail' })
     res.redirect('/')
     return
   }
   
+  next()
+}
+
+module.exports.login = passport.authenticate('naver')
+
+module.exports.logout = async(req, res) => {
   const option = {
-    uri: 'https://nid.naver.com/oauth2.0/token?grant_type=delete&client_id=' + authConfig.naverClientID + '&client_secret=' + authConfig.naverClientSecret + '&access_token=' + req.user.token + '&service_provider=NAVER',
+    uri: 'https://nid.naver.com/oauth2.0/token?grant_type=delete&client_id=' + Buffer.from(secuUtil.naverClientID, 'base64').toString('utf8') + '&client_secret=' + Buffer.from(secuUtil.naverClientSecret, 'base64').toString('utf8') + '&access_token=' + req.user.token + '&service_provider=NAVER',
     method: 'GET',
     json: true
   }
 
-  const out = await request(option, (error, res, body) => {
-    return res
-  })
+  const out = await request(option, (error, res, body) => { return res })
 
-  req.logout((error) => { if (error) throw error})
-  //res.status(200).json({status: 'success'})
+  req.logout((error) => { if (error) throw error })
+  //res.status(200).json({ status: 'success' })
   res.redirect('/')
 }
 
