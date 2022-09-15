@@ -21,11 +21,12 @@
  * 
  */
 
-const HTTP_PORT = 1234
+const HTTP_PORT = 80
 
 const express = require('express')
 const expressSession = require('express-session')
 const http = require('http')
+const cors = require('cors')
 const logger = require('morgan')
 const passport = require('passport')
 
@@ -41,6 +42,13 @@ app.set('views', __dirname + '/views')
 app.set('view engine', 'ejs')
 
 app.use(logger('dev'))
+
+/*const corsOptions = {
+  origin: 'http://localhost',
+  credentials: true,
+}
+
+app.use(cors(corsOptions))*/
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))

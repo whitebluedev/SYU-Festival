@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script>
+    if (navigator.geolocation){
+      navigator.geolocation.getCurrentPosition(function(pos){
+        document.getElementById('latitude').innerHTML = pos.coords.latitude;
+        document.getElementById('longitude').innerHTML = pos.coords.longitude;
+        
+        const request = new XMLHttpRequest();
+        request.open('POST', "http://localhost/auth/gpsCheck", true);
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        request.send('x=' + pos.coords.longitude + '&y=' + pos.coords.latitude);
+        request.onreadystatechange = function(){
+          if (request.readyState === 4 && request.status === 200){
+            document.getElementById('info').innerHTML = request.responseText;
+          }
+        };
+      });
+    }else{
+      alert('error');
+    }
+  </script>
+</head>
+<body>
+  <h2>위도: <span id="latitude"></span></h2>
+  <h2>경도: <span id="longitude"></span></h2>
+  <h2>정보: </h2>
+  <span id="info"></span>
+</body>
+</html>
+

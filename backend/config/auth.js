@@ -27,20 +27,24 @@ const NaverStrategy = require('passport-naver-v2').Strategy
 
 const secuUtil = require('../utils/secu')
 
+const kakaoOptions = {
+  clientID: Buffer.from(secuUtil.kakaoClientID, 'base64').toString('utf8'),
+  clientSecret: Buffer.from(secuUtil.kakaoClientSecret, 'base64').toString('utf8'),
+  callbackURL: '/auth/kakao/callback'
+}
+
+const naverOptions = {
+  clientID: Buffer.from(secuUtil.naverClientID, 'base64').toString('utf8'),
+  clientSecret: Buffer.from(secuUtil.naverClientSecret, 'base64').toString('utf8'),
+  callbackURL: '/auth/naver/callback'
+}
+
 module.exports.init = () => {
-  passport.use(new KakaoStrategy({
-    clientID: Buffer.from(secuUtil.kakaoClientID, 'base64').toString('utf8'),
-    clientSecret: Buffer.from(secuUtil.kakaoClientSecret, 'base64').toString('utf8'),
-    callbackURL: '/auth/kakao/callback',
-  }, async (accessToken, refreshToken, profile, done) => {
+  passport.use(new KakaoStrategy(kakaoOptions, async(accessToken, refreshToken, profile, done) => {
     done(null, { type: 'kakao', token: accessToken, id: profile.id, username: profile.username, _json: profile._json })
   }))
   
-  passport.use(new NaverStrategy({
-    clientID: Buffer.from(secuUtil.naverClientID, 'base64').toString('utf8'),
-    clientSecret: Buffer.from(secuUtil.naverClientSecret, 'base64').toString('utf8'),
-    callbackURL: '/auth/naver/callback',
-  }, async (accessToken, refreshToken, profile, done) => {
+  passport.use(new NaverStrategy(naverOptions, async(accessToken, refreshToken, profile, done) => {
     done(null, { type: 'naver', token: accessToken, id: profile.id, username: profile.name, _json: profile._json })
   }))
   

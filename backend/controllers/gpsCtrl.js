@@ -21,26 +21,29 @@
  * 
  */
 
-const express = require('express')
 
-const gpsCtrl = require('../controllers/gpsCtrl')
-const kakaoAuth = require('../controllers/kakaoAuth')
-const naverAuth = require('../controllers/naverAuth')
-const sessionCtrl = require('../controllers/sessionCtrl')
+const request = require('request-promise')
 
-const router = express.Router()
+const secuUtil = require('../utils/secu')
 
-router.get('/sessionCheck', sessionCtrl.sessionCheck)
+module.exports.gpsShow = (req, res) => {
+  res.status(200).render('gps')
+}
 
-router.get('/gpsShow', gpsCtrl.gpsShow)
-router.post('/gpsCheck', gpsCtrl.gpsCheck)
+module.exports.gpsCheck = async(req, res) => {
+  const { x, y } = req.body
 
-router.get('/kakao/login', kakaoAuth.loginCheck, kakaoAuth.login)
-router.get('/kakao/logout', kakaoAuth.logoutCheck, kakaoAuth.logout)
-router.get('/kakao/callback', kakaoAuth.loginCheck, kakaoAuth.callback)
+  const option = {
+    uri: 'https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=' + x + '&y=' + y,
+    method: 'POST',
+    headers: {
+      'Authorization' : 'KakaoAK ' + Buffer.from(secuUtil.kakaoClientID, 'base64').toString('utf8')
+    },
+    json: true
+  }
 
-router.get('/naver/login', naverAuth.loginCheck, naverAuth.login)
-router.get('/naver/logout', naverAuth.logoutCheck, naverAuth.logout)
-router.get('/naver/callback', naverAuth.loginCheck, naverAuth.callback)
+  const out = await request(option, (error, res, body) => { return res })
 
-module.exports = router
+  console.log(out.documents)
+  res.status(200).json(out.documents)
+}
