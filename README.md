@@ -2,8 +2,8 @@
 `SYU Festival Web Site 2022` by Whiteblue<br><br>
 
 ### Front-End
-[@waeandway]() <br>
-
+[@waeandway](https://github.com/waeandway) <br>
+💻 Next.js
 
 
 ### Back-End 

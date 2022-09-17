@@ -1,0 +1,18 @@
+.container {
+    font: 2.5em;
+    text-align: center;
+}
+.home {
+    float: left;
+    padding: 10px;
+    margin: 2%;
+    margin-bottom: 0.1%;
+}
+.menu {
+    float: right;
+    padding: 10px;
+    margin: 2%;
+    margin-top: 0.5%;
+    margin-bottom: 0.5%;
+    list-style: none;
+}
