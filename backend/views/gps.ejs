@@ -9,7 +9,7 @@
         document.getElementById('longitude').innerHTML = pos.coords.longitude;
         
         const request = new XMLHttpRequest();
-        request.open('POST', "http://localhost/auth/gpsCheck", true);
+        request.open('POST', "https://re-wind.today:444/auth/gpsCheck", true);
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         request.send('x=' + pos.coords.longitude + '&y=' + pos.coords.latitude);
         request.onreadystatechange = function(){

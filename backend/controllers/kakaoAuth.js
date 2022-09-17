@@ -27,7 +27,7 @@ const request = require('request-promise')
 module.exports.loginCheck = (req, res, next) => {
   if (typeof(req.user) !== 'undefined'){
     //res.status(400).json({ status: 'fail' })
-    res.redirect('/')
+    res.redirect('https://re-wind.today/')
     return
   }
   next()
@@ -36,13 +36,13 @@ module.exports.loginCheck = (req, res, next) => {
 module.exports.logoutCheck = (req, res, next) => {
   if (typeof(req.user) === 'undefined'){
     //res.status(400).json({ status: 'fail' })
-    res.redirect('/')
+    res.redirect('https://re-wind.today/')
     return
   }
 
   if (req.user.type !== 'kakao'){
     //res.status(400).json({ status: 'fail' })
-    res.redirect('/')
+    res.redirect('https://re-wind.today/')
     return
   }
   
@@ -56,19 +56,23 @@ module.exports.logout = async(req, res) => {
     uri: 'https://kapi.kakao.com/v1/user/unlink',
     method: 'POST',
     headers: {
-      'Authorization' : 'Bearer ' + req.user.token
+      'Authorization': 'Bearer ' + req.user.token
     },
     json: true
   }
 
-  const out = await request(option, (error, res, body) => { return res })
+  const out = await request(option, (error, res, body) => {
+    if (!error){
+      return res
+    }
+  })
 
   req.logout((error) => { if (error) throw error })
   //res.status(200).json({ status: 'success' })
-  res.redirect('/')
+  res.redirect('https://re-wind.today/')
 }
 
 module.exports.callback = passport.authenticate('kakao', {
-  successRedirect: '/',
-  failureRedirect: '/',
+  successRedirect: 'https://re-wind.today/vote',
+  failureRedirect: 'https://re-wind.today/vote',
 })

@@ -60,7 +60,11 @@ module.exports.logout = async(req, res) => {
     json: true
   }
 
-  const out = await request(option, (error, res, body) => { return res })
+  const out = await request(option, (error, res, body) => {
+    if (!error){
+      return res
+    }
+  })
 
   req.logout((error) => { if (error) throw error })
   //res.status(200).json({ status: 'success' })

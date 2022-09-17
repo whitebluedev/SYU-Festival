@@ -21,11 +21,13 @@
  * 
  */
 
-const HTTP_PORT = 80
+const HTTP_PORT = 4000
 
 const express = require('express')
 const expressSession = require('express-session')
 const http = require('http')
+const https = require('https')
+const fs = require('fs')
 const cors = require('cors')
 const logger = require('morgan')
 const passport = require('passport')
@@ -43,12 +45,12 @@ app.set('view engine', 'ejs')
 
 app.use(logger('dev'))
 
-/*const corsOptions = {
-  origin: 'http://localhost',
+const corsOptions = {
+  origin: 'https://re-wind.today',
   credentials: true,
 }
 
-app.use(cors(corsOptions))*/
+app.use(cors(corsOptions))
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
@@ -69,10 +71,15 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 app.use('/', express.static(__dirname + '/public'))
-app.use('/', indexRouter)
+//app.use('/', indexRouter)
 app.use('/auth', authRouter)
 app.use('*', (req, res) => { res.status(404).send('404') })
 
-http.createServer(app).listen(HTTP_PORT, '0.0.0.0')
+http.createServer(app).listen(HTTP_PORT)
+https.createServer({
+  'ca': fs.readFileSync('/etc/letsencrypt/live/re-wind.today/fullchain.pem'),
+  'key': fs.readFileSync('/etc/letsencrypt/live/re-wind.today/privkey.pem'),
+  'cert': fs.readFileSync('/etc/letsencrypt/live/re-wind.today/cert.pem')
+}, app).listen(444)
 
 loggerUtil.getLogo()

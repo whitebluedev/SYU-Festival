@@ -42,8 +42,18 @@ module.exports.gpsCheck = async(req, res) => {
     json: true
   }
 
-  const out = await request(option, (error, res, body) => { return res })
+  const out = await request(option, (error, res, body) => {
+    if (!error){
+      return res
+    }
+  })
 
-  console.log(out.documents)
-  res.status(200).json(out.documents)
+  console.log(out.documents[0].address_name)
+
+  if (out.documents[0].address_name != '서울특별시 강북구 번동'){
+    res.status(400).json({ 'status': 400 })
+    return
+  }
+
+  res.status(200).json({ 'status': 200 })
 }

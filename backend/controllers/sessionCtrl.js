@@ -26,5 +26,5 @@ module.exports.sessionCheck = (req, res) => {
     res.status(400).json({ 'status': 400 })
     return
   }
-  res.status(400).json({ 'status': 200 })
+  res.status(200).json({ 'status': 200 })
 }

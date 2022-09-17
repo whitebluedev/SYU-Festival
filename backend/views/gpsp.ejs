@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script>
+    function gpsp(){
+      const request = new XMLHttpRequest();
+      request.open('POST', "http://localhost/auth/gpsCheck", true);
+      request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      request.send('x=' + document.getElementById('x').value + '&y=' + document.getElementById('y').value);
+      request.onreadystatechange = function(){
+        if (request.readyState === 4 && request.status === 200){
+          document.getElementById('info').innerHTML = request.responseText;
+        }
+      };
+    }
+    </script>
+  </head>
+<body>
+  <h2>위도: </h2><input type="text" name="y" id="y" placeholder="위도 입력..">
+  <h2>경도: </h2><input type="text" name="x" id="x" placeholder="경도 입력..">
+  <br>
+  <br>
+  <button type="button" class="gpsp" onclick="return gpsp()">조회</button>
+  <h2>정보: </h2>
+  <span id="info"></span>
+</body>
+</html>
