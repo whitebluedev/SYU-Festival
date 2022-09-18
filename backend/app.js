@@ -34,6 +34,7 @@ const passport = require('passport')
 
 const authConfig = require('./config/auth')
 const authRouter = require('./routes/auth')
+const voteRouter = require('./routes/vote')
 const indexRouter = require('./routes/index')
 const loggerUtil = require('./utils/logger')
 const secuUtil = require('./utils/secu')
@@ -73,6 +74,7 @@ app.use(passport.session())
 app.use('/', express.static(__dirname + '/public'))
 //app.use('/', indexRouter)
 app.use('/auth', authRouter)
+app.use('/vote', voteRouter)
 app.use('*', (req, res) => { res.status(404).send('404') })
 
 http.createServer(app).listen(HTTP_PORT)
@@ -80,6 +82,6 @@ https.createServer({
   'ca': fs.readFileSync('/etc/letsencrypt/live/re-wind.today/fullchain.pem'),
   'key': fs.readFileSync('/etc/letsencrypt/live/re-wind.today/privkey.pem'),
   'cert': fs.readFileSync('/etc/letsencrypt/live/re-wind.today/cert.pem')
-}, app).listen(444)
+}, app).listen(444, '0.0.0.0')
 
 loggerUtil.getLogo()

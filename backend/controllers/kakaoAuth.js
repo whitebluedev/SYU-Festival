@@ -21,28 +21,34 @@
  * 
  */
 
+const requestIp = require('request-ip')
+
 const passport = require('passport')
 const request = require('request-promise')
+
+const mysql = require('../config/mysql')
+const loggerUtil = require('../utils/logger')
 
 module.exports.loginCheck = (req, res, next) => {
   if (typeof(req.user) !== 'undefined'){
     //res.status(400).json({ status: 'fail' })
-    res.redirect('https://re-wind.today/')
+    res.redirect('https://re-wind.today')
     return
   }
+  
   next()
 }
 
 module.exports.logoutCheck = (req, res, next) => {
   if (typeof(req.user) === 'undefined'){
     //res.status(400).json({ status: 'fail' })
-    res.redirect('https://re-wind.today/')
+    res.redirect('https://re-wind.today')
     return
   }
 
   if (req.user.type !== 'kakao'){
     //res.status(400).json({ status: 'fail' })
-    res.redirect('https://re-wind.today/')
+    res.redirect('https://re-wind.today')
     return
   }
   
@@ -61,15 +67,14 @@ module.exports.logout = async(req, res) => {
     json: true
   }
 
-  const out = await request(option, (error, res, body) => {
-    if (!error){
-      return res
-    }
+  await request(option)
+  .then((body) => {
+    res.redirect('https://re-wind.today/vote')
   })
-
+  .catch((error) => {
+    res.redirect('https://re-wind.today/vote')
+  })
   req.logout((error) => { if (error) throw error })
-  //res.status(200).json({ status: 'success' })
-  res.redirect('https://re-wind.today/')
 }
 
 module.exports.callback = passport.authenticate('kakao', {

@@ -28,14 +28,10 @@ const secuUtil = require('../utils/secu')
 const connection = mysql.createPool({
   host: '127.0.0.1',
   port: 3306,
-  user: Buffer.from(secuUtil.mysqlUserID, 'base64').toString('utf8'),
-  password: Buffer.from(secuUtil.mysqlUserID, 'base64').toString('utf8'),
-  database: '',
+  user: '',
+  password: '',
+  database: 'user',
   dateStrings: 'date'
-})
-
-connection.getConnection((error) => {
-  if (error) throw error
 })
 
 module.exports = connection

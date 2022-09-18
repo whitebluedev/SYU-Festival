@@ -21,44 +21,17 @@
  * 
  */
 
+const express = require('express')
 
-const request = require('request-promise')
+const gpsCtrl = require('../controllers/voteCtrl')
 
-const secuUtil = require('../utils/secu')
+const router = express.Router()
 
-/*module.exports.gpsShow = (req, res) => {
-  res.status(200).render('gps')
-}*/
+//router.post('/', gpsCtrl.vote) // todo , 투표
 
-module.exports.gpsCheck = async(req, res) => {
-  const { x, y } = req.body
+router.get('/voteStatus', gpsCtrl.voteStatus) // todo, 투표 활성화, 비활성화
+//router.post('/voteStatus', gpsCtrl.voteStatus) // todo, 투표 활성화, 비활성화
 
-  if (typeof(req.user) === 'undefined'){
-    res.status(401).json({ 'status': 401 })
-    return
-  }
-  
-  const option = {
-    uri: 'https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=' + x + '&y=' + y,
-    method: 'POST',
-    headers: {
-      'Authorization' : 'KakaoAK ' + Buffer.from(secuUtil.kakaoClientID, 'base64').toString('utf8')
-    },
-    json: true
-  }
-  
-  await request(option)
-  .then((body) => {
-    console.log(body.documents[0].address_name)
-    
-    if (body.documents[0].address_name != '서울특별시 강북구 번동'){
-      res.status(400).json({ 'status': 400 })
-      return
-    }
-    
-    res.status(200).json({ 'status': 200 })
-  })
-  .catch((error) => {
-    res.status(400).json({ 'status': 400 })
-  })
-}
+//router.get('/page/voteShow', gpsCtrl.voteShow) // todo, 관리자 페이지
+
+module.exports = router

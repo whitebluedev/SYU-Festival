@@ -21,44 +21,15 @@
  * 
  */
 
+const fs = require('fs')
 
-const request = require('request-promise')
+module.exports.voteStatus = (req, res) => {
+  const setting = fs.readFileSync('/root/backend/setting.txt', 'utf8')
 
-const secuUtil = require('../utils/secu')
-
-/*module.exports.gpsShow = (req, res) => {
-  res.status(200).render('gps')
-}*/
-
-module.exports.gpsCheck = async(req, res) => {
-  const { x, y } = req.body
-
-  if (typeof(req.user) === 'undefined'){
-    res.status(401).json({ 'status': 401 })
+  if (setting == 'false'){
+    res.status(400).json({ status: 400 })
     return
   }
-  
-  const option = {
-    uri: 'https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=' + x + '&y=' + y,
-    method: 'POST',
-    headers: {
-      'Authorization' : 'KakaoAK ' + Buffer.from(secuUtil.kakaoClientID, 'base64').toString('utf8')
-    },
-    json: true
-  }
-  
-  await request(option)
-  .then((body) => {
-    console.log(body.documents[0].address_name)
-    
-    if (body.documents[0].address_name != '서울특별시 강북구 번동'){
-      res.status(400).json({ 'status': 400 })
-      return
-    }
-    
-    res.status(200).json({ 'status': 200 })
-  })
-  .catch((error) => {
-    res.status(400).json({ 'status': 400 })
-  })
+
+  res.status(200).json({ status: 200 })
 }
