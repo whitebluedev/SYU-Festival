@@ -23,15 +23,17 @@
 
 const express = require('express')
 
-const gpsCtrl = require('../controllers/voteCtrl')
+const voteCtrl = require('../controllers/voteCtrl')
 
 const router = express.Router()
 
-//router.post('/', gpsCtrl.vote) // todo , 투표
+//router.get('/vote/:id', voteCtrl.vote) // todo, 투표 하기
 
-router.get('/voteStatus', gpsCtrl.voteStatus) // todo, 투표 활성화, 비활성화
-//router.post('/voteStatus', gpsCtrl.voteStatus) // todo, 투표 활성화, 비활성화
+router.get('/voteManager', voteCtrl.voteShow) // 관리자 페이지, 투표 상태, 투표 실시간 집계
 
-//router.get('/page/voteShow', gpsCtrl.voteShow) // todo, 관리자 페이지
+router.get('/status', voteCtrl.status) // 투표 상태 확인
+router.get('/status/enable', voteCtrl.statusEnable) // 투표 활성화 설정
+router.get('/status/disable', voteCtrl.statusDisable) // 투표 비활성화 설정
+
 
 module.exports = router

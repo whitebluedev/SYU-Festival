@@ -23,8 +23,8 @@
 
 const fs = require('fs')
 
-module.exports.voteStatus = (req, res) => {
-  const setting = fs.readFileSync('/root/backend/setting.txt', 'utf8')
+module.exports.status = (req, res) => {
+  const setting = fs.readFileSync('/root/backend/setting.txt', 'utf8', () => {})
 
   if (setting == 'false'){
     res.status(400).json({ status: 400 })
@@ -32,4 +32,20 @@ module.exports.voteStatus = (req, res) => {
   }
 
   res.status(200).json({ status: 200 })
+}
+
+module.exports.statusEnable = (req, res) => {
+  const setting = fs.writeFileSync('/root/backend/setting.txt', 'true', 'utf8', () => {})
+
+  res.status(200).json({ status: 200 })
+}
+
+module.exports.statusDisable = (req, res) => {
+  const setting = fs.writeFileSync('/root/backend/setting.txt', 'false', 'utf8', () => {})
+
+  res.status(200).json({ status: 200 })
+}
+
+module.exports.voteShow = (req, res) => {
+  res.render('vote')
 }

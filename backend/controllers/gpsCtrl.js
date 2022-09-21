@@ -51,10 +51,10 @@ module.exports.gpsCheck = async(req, res) => {
   .then((body) => {
     console.log(body.documents[0].address_name)
     
-    if (body.documents[0].address_name != '서울특별시 강북구 번동'){
+    /*if (body.documents[0].address_name != '서울특별시 강북구 번동'){
       res.status(400).json({ 'status': 400 })
       return
-    }
+    }*/
     
     res.status(200).json({ 'status': 200 })
   })

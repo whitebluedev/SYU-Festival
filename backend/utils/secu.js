@@ -21,8 +21,8 @@
  * 
  */
 
-module.exports.mysqlUserID = 'cm9vdA=='
-module.exports.mysqlUserPWD = 'c3l1ZmVzdDIwMjIhQCMk'
+module.exports.mysqlUserID = ''
+module.exports.mysqlUserPWD = ''
 
 module.exports.sessionSecret = 'c3l1IUAjJA=='
 

@@ -62,7 +62,7 @@ app.use(expressSession({
   saveUninitialized: true,
   cookie: {
     secure: false,
-    maxAge: 1000 * 60 * 60 * 12 // 12 hours
+    maxAge: 1000 * 60 * 60 * 1 // 1 hours
   }
 }))
 
