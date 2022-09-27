@@ -1,122 +1,71 @@
+@font-face {
+    font-family: 'Eoe_Zno_EB';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_eight@1.0/Eoe_Zno_EB.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'ChosunSg';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ChosunSg.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'NEXON Lv2 Gothic';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv2 Gothic.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 * {
     font-size: 14px;
+    font-family: 'Eoe_Zno_EB';
     box-sizing: border-box;
     text-align: center;
 }
-.container {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr); 
-    grid-template-rows: 0.1fr 1fr 0.1fr; 
-    grid-template-areas:
-     "nav nav nav nav nav nav nav nav nav nav nav nav"
-     "main main main main main main main main main main main main"
-     "footer footer footer footer footer footer footer footer footer footer footer footer";
-}
-.nav {
-    grid-area: nav;
-}
+
 .main {
-    grid-area: main;
-    width: 100%;
-    height: 100%;
-    padding: 4%;
-    padding-top: 10%;
-    padding-bottom: 100%;
-    background-color: pink;
-}
-.footer {
-    grid-area: footer;
-    width: 100%;
-    height: 100%;
     margin: 0 auto;
-    padding: 5%;
-    font-size: 1rem;
-    background-color: grey;
+    padding-top: 10px;
+    padding-bottom: 0px;
 }
 
+.footer {
+    width: 100%;
+    padding: 0%;
+    font-size: 0.7rem;
+    font-family: 'ChosunSg';
+}
+
+
+
+/*--------------------------- Media Query ---------------------------*/
 @media (max-width: 280px) { /* Galaxy Fold */
-    .container {
-        grid-template-columns: repeat(6, 1fr);
-        grid-template-areas:
-        "nav nav nav nav nav nav"
-        "main main main main main main"
-        "footer footer footer footer footer footer";
-    }
-    .main {
-        padding-bottom: 470px;
-    }
+
+
 }
 
 @media (min-width: 281px) and (max-width: 375px) { /* iPhone SE & X*/
-    .container {
-        grid-template-columns: repeat(6, 1fr);
-        grid-template-areas:
-        "nav nav nav nav nav nav"
-        "main main main main main main"
-        "footer footer footer footer footer footer";
-    }
-    .main {
-        padding-bottom: 610px;
-    }
+    
 }
 
-@media (min-width: 376px) and (max-width: 480px) { /* iPhone */
-    .container {
-        grid-template-columns: repeat(6, 1fr);
-        grid-template-areas:
-        "nav nav nav nav nav nav"
-        "main main main main main main"
-        "footer footer footer footer footer footer";
-    }
-    .main {
-        padding-bottom: 700px;
-    }
-    .footer {
-        color:red;
-    }
+@media (min-width: 376px) and (max-width: 480px) { /* iPhone Pro*/
+    
 
 }
+
 @media (min-width: 481px) and (max-width: 767px) { 
-    .container {
-        grid-template-columns: repeat(8, 1fr);
-        grid-template-areas: 
-        "nav nav nav nav nav nav nav nav"
-        "main main main main main main main main"
-        "footer footer footer footer footer footer footer footer";
-    }
-    .main {
-        padding: 3%;
-        padding-bottom: 723px;
-    }
+
 }
+
 @media (min-width: 768px) and (max-width: 1023px) { /* iPad Air */
-    .container {
-        grid-template-columns: repeat(12, 1fr);
-    }
-    .main {
-        padding: 3%;
-        padding-bottom: 990px
-    }
+
 }
 
 @media (min-width: 1024px) and (max-width: 1280px) { 
-    .container {
-        grid-template-columns: repeat(12, 1fr);
-    }
-    .main {
-        padding: 3%;
-        padding-bottom: 1060px;
-    }
+
 }
+
 @media (min-width: 1281px) { /* iPad Pro & Desktop & Laptop */
-    .container {
-        grid-template-columns: repeat(12, 1fr);
-    }
-    .main {
-        padding : 3%;
-        padding-bottom: 800px;
-    }
-    .footer {
-        padding : 2%;
-    }
+
 }

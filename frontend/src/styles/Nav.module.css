@@ -1,18 +1,82 @@
 .container {
-    font: 2.5em;
-    text-align: center;
+    padding: 3% 3% 0 3%;
 }
+
 .home {
     float: left;
-    padding: 10px;
-    margin: 2%;
-    margin-bottom: 0.1%;
+    display: inline;
+    font-size: 1.5em;
+    /*color: #fff;*/
 }
-.menu {
+.home:hover {
+    cursor: pointer;
+}
+
+.menuicon {
+    display: none;
+}
+.sidebar {
+    display: inline;
     float: right;
-    padding: 10px;
-    margin: 2%;
-    margin-top: 0.5%;
-    margin-bottom: 0.5%;
-    list-style: none;
 }
+.vote, .timetable, .map {
+    font-size: 1.5em;
+    transition: all 0.4s;
+    /*color: #fff;*/
+}
+.vote:hover, .timetable:hover, .map:hover {
+    cursor: pointer;
+    color: #000;
+}
+
+
+/*--------------------- Media Query (Screen) ----------------------*/
+@media (max-width: 280px) { /* Galaxy Fold */
+
+
+}
+
+@media (min-width: 281px) and (max-width: 375px) { /* iPhone SE & X*/
+    .home {
+        font-size: 1.3em;
+        margin-left: 7%;
+    }
+
+}
+
+@media (min-width: 376px) and (max-width: 480px) { /* iPhone Pro*/
+    .home {
+        margin-top: 3%;
+        font-size: 1.3em;
+    }
+    .vote, .timetable, .map {
+        display: none;
+    }
+    .menuicon {
+        font-size: 2.8em;
+        display: inline;
+    }
+    .sidebar {
+        margin-top: 2%;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 819px) { 
+
+
+}
+
+@media (min-width: 820px) and (max-width: 1023px) { /* iPad Air */
+
+}
+
+@media (min-width: 1024px) and (max-width: 1366px) { /* iPad Pro */
+
+}
+
+@media (min-width: 1377px) { /* PC */
+
+
+}
+
+
