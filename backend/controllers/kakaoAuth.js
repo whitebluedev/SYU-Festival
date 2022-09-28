@@ -21,13 +21,8 @@
  * 
  */
 
-const requestIp = require('request-ip')
-
 const passport = require('passport')
 const request = require('request-promise')
-
-const mysql = require('../config/mysql')
-const loggerUtil = require('../utils/logger')
 
 module.exports.loginCheck = (req, res, next) => {
   if (typeof(req.user) !== 'undefined'){
@@ -74,6 +69,7 @@ module.exports.logout = async(req, res) => {
   .catch((error) => {
     res.redirect('https://re-wind.today/vote')
   })
+
   req.logout((error) => { if (error) throw error })
 }
 

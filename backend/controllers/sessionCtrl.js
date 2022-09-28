@@ -21,10 +21,27 @@
  * 
  */
 
+const fs = require('fs')
+
 module.exports.sessionCheck = (req, res) => {
-  if (typeof(req.user) === 'undefined'){
-    res.status(400).json({ 'status': 400 })
-    return
+  let sessionData = {
+    islogin: false,
+    isgps: false,
+    isvote: false,
+    vote_status: fs.readFileSync('/root/backend/setting.txt', 'utf8', () => {})
   }
-  res.status(200).json({ 'status': 200 })
+
+  if (typeof(req.user) !== 'undefined'){
+    if (req.user.isgps === true){
+      sessionData.isgps = true
+    }
+  
+    if (req.user.isvote === true){
+      sessionData.isgps = true
+    }
+    
+    sessionData.islogin = true
+  }
+
+  res.status(200).json(sessionData)
 }

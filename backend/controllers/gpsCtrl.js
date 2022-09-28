@@ -26,10 +26,6 @@ const request = require('request-promise')
 
 const secuUtil = require('../utils/secu')
 
-/*module.exports.gpsShow = (req, res) => {
-  res.status(200).render('gps')
-}*/
-
 module.exports.gpsCheck = async(req, res) => {
   const { x, y } = req.body
 
@@ -56,9 +52,10 @@ module.exports.gpsCheck = async(req, res) => {
       return
     }*/
     
+    res.user.isgps = true
     res.status(200).json({ 'status': 200 })
   })
   .catch((error) => {
-    res.status(400).json({ 'status': 400 })
+    res.status(400).json({ 'msg': '알 수 없는 오류 발생' })
   })
 }

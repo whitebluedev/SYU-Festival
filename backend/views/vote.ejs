@@ -8,21 +8,13 @@
     request.send();
     request.onreadystatechange = function(){
       if (request.readyState === 4 && request.status === 200){
-        document.getElementById('info').innerHTML = '활성화';
-      }else if (request.readyState === 4 && request.status === 400){
         document.getElementById('info').innerHTML = '비활성화';
+      }else if (request.readyState === 4 && request.status === 201){
+        document.getElementById('info').innerHTML = '활성화';
+      }else if (request.readyState === 4 && request.status === 202){
+        document.getElementById('info').innerHTML = '투표 결과 공개';
       }
     };
-    function enable(){
-      const request = new XMLHttpRequest();
-      request.open('GET', 'https://re-wind.today:444/vote/status/enable', true);
-      request.send();
-      request.onreadystatechange = function(){
-        if (request.readyState === 4 && request.status === 200){
-          document.getElementById('info').innerHTML = '활성화';
-        }
-      };
-    }
     function disable(){
       const request = new XMLHttpRequest();
       request.open('GET', 'https://re-wind.today:444/vote/status/disable', true);
@@ -33,13 +25,38 @@
         }
       };
     }
+    function enable(){
+      const request = new XMLHttpRequest();
+      request.open('GET', 'https://re-wind.today:444/vote/status/enable', true);
+      request.send();
+      request.onreadystatechange = function(){
+        if (request.readyState === 4 && request.status === 201){
+          document.getElementById('info').innerHTML = '활성화';
+        }
+      };
+    }
+    function result(){
+      const request = new XMLHttpRequest();
+      request.open('GET', 'https://re-wind.today:444/vote/status/result', true);
+      request.send();
+      request.onreadystatechange = function(){
+        if (request.readyState === 4 && request.status === 202){
+          document.getElementById('info').innerHTML = '투표 결과 공개';
+        }
+      };
+    }
     </script>
   </head>
 <body>
   <h1>관리자 페이지 ( Administrator Page )</h1>
   <br/>
   <h2>투표 상태: <span id="info"></span></h2>
-  <button type="button" class="enable" onclick="enable()">투표 활성화</button>
   <button type="button" class="disable" onclick="disable()">투표 비활성화</button>
+  <button type="button" class="enable" onclick="enable()">투표 활성화</button>
+  <button type="button" class="disable" onclick="result()">투표 결과 공개</button>
+  <br/>
+  <br/>
+  <h1>실시간 투표 현황</h1>
+  <br/>
 </body>
 </html>

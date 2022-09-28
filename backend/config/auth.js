@@ -28,7 +28,6 @@ const loggerUtil = require('../utils/logger')
 
 const passport = require('passport')
 const KakaoStrategy = require('passport-kakao').Strategy
-const NaverStrategy = require('passport-naver-v2').Strategy
 
 const secuUtil = require('../utils/secu')
 
@@ -39,14 +38,17 @@ const kakaoOptions = {
   passReqToCallback: true
 }
 
-const naverOptions = {
-  clientID: Buffer.from(secuUtil.naverClientID, 'base64').toString('utf8'),
-  clientSecret: Buffer.from(secuUtil.naverClientSecret, 'base64').toString('utf8'),
-  callbackURL: '/auth/naver/callback'
-}
-
 module.exports.init = () => {
   passport.use(new KakaoStrategy(kakaoOptions, async(req, accessToken, refreshToken, profile, done) => {
+    let sessionData = {
+      type: 'kakao',
+      token: accessToken,
+      id: profile.id,
+      username: profile.username,
+      isgps: false,
+      isvote: false
+    }
+
     mysql.getConnection((error, connection) => {
       if (error) throw error
 
@@ -56,35 +58,35 @@ module.exports.init = () => {
         const date = loggerUtil.getYMD() + ' ' + loggerUtil.getHMS()
         const ip = requestIp.getClientIp(req)
     
-        if (results.length > 0){ // already registered
-          connection.query('UPDATE auth SET last_date = ?, last_ip = ? WHERE kakao_id = ?', [date, ip, profile.id], (error, results, fields) => {
+        if (results.length <= 0){
+          connection.query('INSERT INTO auth (kakao_id, kakao_name, first_date, last_date, first_ip, last_ip) VALUES (?, ?, ?, ?, ?, ?)', [profile.id, profile.username, date, date, ip, ip], (error, results, fields) => {
             if (error) throw error
 
             connection.release()
           })
           return
         }
-    
-        connection.query('INSERT INTO auth (kakao_id, kakao_name, first_date, last_date, first_ip, last_ip) VALUES (?, ?, ?, ?, ?, ?)', [profile.id, profile.username, date, date, ip, ip], (error, results, fields) => {
+
+        if (results[0].vote !== null){
+          sessionData.isvote = true
+        }
+
+        connection.query('UPDATE auth SET last_date = ?, last_ip = ? WHERE kakao_id = ?', [date, ip, profile.id], (error, results, fields) => {
           if (error) throw error
-    
+
           connection.release()
         })
       })
     })
 
-    done(null, { type: 'kakao', token: accessToken, id: profile.id, username: profile.username, _json: profile._json })
+    done(null, sessionData)
   }))
   
-  passport.use(new NaverStrategy(naverOptions, async(req, accessToken, refreshToken, profile, done) => {
-    done(null, { type: 'naver', token: accessToken, id: profile.id, username: profile.name, _json: profile._json })
-  }))
-  
-  passport.serializeUser((user, done) => { // login check
-    done(null, user)
+  passport.serializeUser((sessionData, done) => {
+    done(null, sessionData)
   })
   
-  passport.deserializeUser((user, done) => { // login after check
-    done(null, user)
+  passport.deserializeUser((sessionData, done) => {
+    done(null, sessionData)
   })
 }

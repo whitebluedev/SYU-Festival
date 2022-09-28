@@ -25,22 +25,21 @@ const express = require('express')
 
 const gpsCtrl = require('../controllers/gpsCtrl')
 const kakaoAuth = require('../controllers/kakaoAuth')
-const naverAuth = require('../controllers/naverAuth')
+//const naverAuth = require('../controllers/naverAuth')
 const sessionCtrl = require('../controllers/sessionCtrl')
 
 const router = express.Router()
 
-router.get('/sessionCheck', sessionCtrl.sessionCheck)
+router.get('/sessionCheck', sessionCtrl.sessionCheck) // { islogin, isgps, isvote }
 
-//router.get('/gpsShow', gpsCtrl.gpsShow)
 router.post('/gpsCheck', gpsCtrl.gpsCheck)
 
 router.get('/kakao/login', kakaoAuth.loginCheck, kakaoAuth.login)
 router.get('/kakao/logout', kakaoAuth.logoutCheck, kakaoAuth.logout)
 router.get('/kakao/callback', kakaoAuth.loginCheck, kakaoAuth.callback)
 
-/*router.get('/naver/login', naverAuth.loginCheck, naverAuth.login)
-router.get('/naver/logout', naverAuth.logoutCheck, naverAuth.logout)
-router.get('/naver/callback', naverAuth.loginCheck, naverAuth.callback)*/
+//router.get('/naver/login', naverAuth.loginCheck, naverAuth.login)
+//router.get('/naver/logout', naverAuth.logoutCheck, naverAuth.logout)
+//router.get('/naver/callback', naverAuth.loginCheck, naverAuth.callback)
 
 module.exports = router

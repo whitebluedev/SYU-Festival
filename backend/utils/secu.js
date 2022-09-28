@@ -21,16 +21,21 @@
  * 
  */
 
+const fs = require('fs')
+
 module.exports.mysqlUserID = ''
 module.exports.mysqlUserPWD = ''
 
 module.exports.sessionSecret = 'c3l1IUAjJA=='
 
-module.exports.sslCA = ''
-module.exports.sslKEY = ''
-module.exports.sslCERT = ''
+module.exports.sslOption = {
+  'ca': fs.readFileSync('/etc/letsencrypt/live/re-wind.today/fullchain.pem'),
+  'key': fs.readFileSync('/etc/letsencrypt/live/re-wind.today/privkey.pem'),
+  'cert': fs.readFileSync('/etc/letsencrypt/live/re-wind.today/cert.pem')
+}
 
 module.exports.kakaoClientID = 'MjIwZGUyOGRjMTczNzFkNDU1ZTYyN2UxZjQ0MDkyNGM='
 module.exports.kakaoClientSecret = ''
-module.exports.naverClientID = 'cjYxb0hlVGhTZU5fZmEyX2VvZk4='
-module.exports.naverClientSecret = 'R1FsV1dKekUybQ=='
+
+module.exports.naverClientID = ''
+module.exports.naverClientSecret = ''

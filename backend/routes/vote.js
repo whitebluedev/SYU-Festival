@@ -23,17 +23,19 @@
 
 const express = require('express')
 
-const voteCtrl = require('../controllers/voteCtrl')
+const voteUserCtrl = require('../controllers/voteUserCtrl')
+const voteAdminCtrl = require('../controllers/voteAdminCtrl')
 
 const router = express.Router()
 
-//router.get('/vote/:id', voteCtrl.vote) // todo, 투표 하기
+router.get('/vote/:id', voteUserCtrl.vote)
+//router.get('/voteAll') // todo 투표 현황
 
-router.get('/voteManager', voteCtrl.voteShow) // 관리자 페이지, 투표 상태, 투표 실시간 집계
+router.get('/voteManager', voteAdminCtrl.voteManager)
 
-router.get('/status', voteCtrl.status) // 투표 상태 확인
-router.get('/status/enable', voteCtrl.statusEnable) // 투표 활성화 설정
-router.get('/status/disable', voteCtrl.statusDisable) // 투표 비활성화 설정
-
+router.get('/status', voteAdminCtrl.status)
+router.get('/status/enable', voteAdminCtrl.statusEnable)
+router.get('/status/disable', voteAdminCtrl.statusDisable)
+router.get('/status/result', voteAdminCtrl.statusResult)
 
 module.exports = router
