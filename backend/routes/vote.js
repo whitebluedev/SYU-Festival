@@ -29,7 +29,6 @@ const voteAdminCtrl = require('../controllers/voteAdminCtrl')
 const router = express.Router()
 
 router.get('/vote/:id', voteUserCtrl.vote)
-//router.get('/voteAll') // todo 투표 현황
 
 router.get('/voteManager', voteAdminCtrl.voteManager)
 
@@ -37,5 +36,8 @@ router.get('/status', voteAdminCtrl.status)
 router.get('/status/enable', voteAdminCtrl.statusEnable)
 router.get('/status/disable', voteAdminCtrl.statusDisable)
 router.get('/status/result', voteAdminCtrl.statusResult)
+
+//router.get('/voteGetAll', voteAdminCtrl.voteGetAll)
+//router.get('/voteRemoveAll', voteAdminCtrl.voteRemoveAll)
 
 module.exports = router

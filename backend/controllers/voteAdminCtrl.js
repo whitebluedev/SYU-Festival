@@ -43,12 +43,15 @@ module.exports.voteManager = (req, res) => {
 module.exports.status = (req, res) => {
   const setting = fs.readFileSync('/root/backend/setting.txt', 'utf8', () => {})
 
-  if (setting == 'false'){
+  if (setting === 'disable'){
+    res.status(200).json({ status: 200 })
+  }else if (setting === 'enable'){
+    res.status(201).json({ status: 201 })
+  }else if (setting === 'result'){
+    res.status(202).json({ status: 202 })
+  }else{
     res.status(400).json({ status: 400 })
-    return
   }
-
-  res.status(200).json({ status: 200 })
 }
 
 module.exports.statusDisable = (req, res) => {
@@ -62,7 +65,7 @@ module.exports.statusDisable = (req, res) => {
     return
   }
 
-  const setting = fs.writeFileSync('/root/backend/setting.txt', 'disable', 'utf8', () => {})
+  fs.writeFileSync('/root/backend/setting.txt', 'disable', 'utf8', () => {})
 
   res.status(200).json({ status: 200 })
 }
@@ -78,7 +81,7 @@ module.exports.statusEnable = (req, res) => {
     return
   }
 
-  const setting = fs.writeFileSync('/root/backend/setting.txt', 'enable', 'utf8', () => {})
+  fs.writeFileSync('/root/backend/setting.txt', 'enable', 'utf8', () => {})
 
   res.status(201).json({ status: 201 })
 }
@@ -94,7 +97,15 @@ module.exports.statusResult = (req, res) => {
     return
   }
 
-  const setting = fs.writeFileSync('/root/backend/setting.txt', 'result', 'utf8', () => {})
+  fs.writeFileSync('/root/backend/setting.txt', 'result', 'utf8', () => {})
 
   res.status(202).json({ status: 202 })
+}
+
+module.exports.voteGetAll = (req, res) => {
+  // mysql...
+}
+
+module.exports.voteRemoveAll = (req, res) => {
+  // mysql...
 }
