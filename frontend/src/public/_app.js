@@ -3,8 +3,6 @@ import Layout from '../components/Layout'
 import Nav from '../components/Nav'
 import 'semantic-ui-css/semantic.min.css'
 
-
-
 function App({ Component, Page }) {
   return (
     <div>
