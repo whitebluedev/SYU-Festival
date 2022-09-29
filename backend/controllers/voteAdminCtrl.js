@@ -43,15 +43,7 @@ module.exports.voteManager = (req, res) => {
 module.exports.status = (req, res) => {
   const setting = fs.readFileSync('/root/backend/setting.txt', 'utf8', () => {})
 
-  if (setting === 'disable'){
-    res.status(200).json({ status: 200 })
-  }else if (setting === 'enable'){
-    res.status(201).json({ status: 201 })
-  }else if (setting === 'result'){
-    res.status(202).json({ status: 202 })
-  }else{
-    res.status(400).json({ status: 400 })
-  }
+  res.status(200).json({ status: setting })
 }
 
 module.exports.statusDisable = (req, res) => {
@@ -67,7 +59,7 @@ module.exports.statusDisable = (req, res) => {
 
   fs.writeFileSync('/root/backend/setting.txt', 'disable', 'utf8', () => {})
 
-  res.status(200).json({ status: 200 })
+  res.status(200).json({})
 }
 
 module.exports.statusEnable = (req, res) => {
@@ -83,7 +75,7 @@ module.exports.statusEnable = (req, res) => {
 
   fs.writeFileSync('/root/backend/setting.txt', 'enable', 'utf8', () => {})
 
-  res.status(201).json({ status: 201 })
+  res.status(200).json({})
 }
 
 module.exports.statusResult = (req, res) => {
@@ -99,13 +91,64 @@ module.exports.statusResult = (req, res) => {
 
   fs.writeFileSync('/root/backend/setting.txt', 'result', 'utf8', () => {})
 
-  res.status(202).json({ status: 202 })
+  res.status(200).json({})
 }
 
 module.exports.voteGetAll = (req, res) => {
-  // mysql...
+  mysql.getConnection((error, connection) => {
+    if (error) throw error
+
+    connection.query('SELECT * FROM vote', (error, results, fields) => {
+      if (error) throw error
+
+      connection.release()
+
+      let voteData = {
+        'vote_1': [],
+        'vote_2': [],
+        'vote_3': [],
+        'vote_4': [],
+        'vote_5': [],
+        'vote_6': [],
+        'vote_7': [],
+        'vote_8': [],
+        'vote_9': [],
+      }
+
+      if (results.length <= 0){
+        res.status(200).json(voteData)
+        return
+      }
+
+      results.forEach(votes => {
+        const users = JSON.parse(votes.users)
+
+        for (let key in voteData){
+          if (users.vote_id === key){
+            voteData[key].push(users)
+          }
+        }
+      })
+
+      res.status(200).json(voteData)
+    })
+  })
 }
 
 module.exports.voteRemoveAll = (req, res) => {
-  // mysql...
+  mysql.getConnection((error, connection) => {
+    if (error) throw error
+
+    connection.query('update auth set vote = NULL', (error, results, fields) => {
+      if (error) throw error
+    })
+
+    connection.query('truncate vote', (error, results, fields) => {
+      if (error) throw error
+    })
+
+    connection.release()
+  })
+
+  res.status(200).json({})
 }

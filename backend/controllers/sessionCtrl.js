@@ -37,7 +37,7 @@ module.exports.sessionCheck = (req, res) => {
     }
   
     if (req.user.isvote === true){
-      sessionData.isgps = true
+      sessionData.isvote = true
     }
     
     sessionData.islogin = true

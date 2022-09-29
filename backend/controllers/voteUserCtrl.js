@@ -40,17 +40,18 @@ const isNumeric = (value) => {
 // voteAdminCtrl.js
 
 module.exports.vote = (req, res) => {
-  const id = req.params.id
-  const vote_tables = {
-    1: 'vote_1',
-    2: 'vote_2',
-    3: 'vote_3',
-    4: 'vote_4',
-    5: 'vote_5',
-    6: 'vote_6',
-    7: 'vote_7',
-    8: 'vote_8',
-    9: 'vote_9'
+  const ids = req.body.ids // array
+
+  const votes = {
+    'vote_1': true,
+    'vote_2': true,
+    'vote_3': true,
+    'vote_4': true,
+    'vote_5': true,
+    'vote_6': true,
+    'vote_7': true,
+    'vote_8': true,
+    'vote_9': true,
   }
 
   if (typeof(req.user) === 'undefined'){
@@ -58,15 +59,22 @@ module.exports.vote = (req, res) => {
     return
   }
 
-  if (!isNumeric(id)){
-    res.status(401).json({ 'msg': '잘못된 get 요청입니다. (1)' })
+  if (Array.isArray(ids) === false){
+    res.status(401).json({ 'msg': '잘못된 요청입니다. (1)' })
     return
   }
 
-  if (typeof(vote_tables[id]) === 'undefined'){
-    res.status(401).json({ 'msg': '잘못된 get 요청입니다. (2)' })
+  if (ids.length > 2){
+    res.status(401).json({ 'msg': '잘못된 요청입니다. (2)' })
     return
   }
+
+  ids.forEach(vote => {
+    if (typeof(votes[vote]) === 'undefined'){
+      res.status(401).json({ 'msg': '잘못된 요청입니다. (3)' })
+      return
+    }
+  })
 
   if (req.user.isgps === false){
     res.status(401).json({ 'msg': '위치 인증이 되어있지 않습니다.' })
@@ -86,29 +94,32 @@ module.exports.vote = (req, res) => {
   
       if (results.length <= 0){
         connection.release()
-        res.status(401).json({ 'msg': '정보가 없습니다.' })
+        res.status(401).json({ 'msg': '본인 정보가 없습니다.' })
         return
       }
 
-      const vote = {
-        'vote_id': vote_tables[id],
-        'date': loggerUtil.getYMD() + ' ' + loggerUtil.getHMS()
-      }
-
-      connection.query('UPDATE auth SET vote = ? WHERE kakao_id = ?', [JSON.stringify(vote), req.user.id], (error, results, fields) => {
-        if (error) throw error
-      })
-
-      const user = {
-        'kakao_id': req.user.id,
-        'date': loggerUtil.getYMD() + ' ' + loggerUtil.getHMS()
-      }
-
-      connection.query('INSERT INTO ?? (users) VALUES (?)', [vote_tables[id], JSON.stringify(user)], (error, results, fields) => {
-        if (error) throw error
+      ids.forEach(vote => {
+        const user_ = {
+          'kakao_id': req.user.id,
+          'vote_id': vote,
+          'date': loggerUtil.getYMD() + ' ' + loggerUtil.getHMS()
+        }
   
-        connection.release()
+        connection.query('INSERT INTO vote (users) VALUES (?)', [JSON.stringify(user_)], (error, results, fields) => {
+          if (error) throw error
+        })
       })
+
+      const vote_ = {
+        'vote_id': ids,
+        'date': loggerUtil.getYMD() + ' ' + loggerUtil.getHMS()
+      }
+
+      connection.query('UPDATE auth SET vote = ? WHERE kakao_id = ?', [JSON.stringify(vote_), req.user.id], (error, results, fields) => {
+        if (error) throw error
+      })
+
+      connection.release()
 
       req.user.isvote = true
       res.status(200).json({ 'msg': '투표가 정상적으로 처리되었습니다.' })

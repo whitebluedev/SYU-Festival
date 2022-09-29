@@ -40,20 +40,21 @@ const kakaoOptions = {
 
 module.exports.init = () => {
   passport.use(new KakaoStrategy(kakaoOptions, async(req, accessToken, refreshToken, profile, done) => {
-    let sessionData = {
-      type: 'kakao',
-      token: accessToken,
-      id: profile.id,
-      username: profile.username,
-      isgps: false,
-      isvote: false
-    }
 
     mysql.getConnection((error, connection) => {
       if (error) throw error
 
       connection.query('SELECT * FROM auth WHERE kakao_id = ?', [profile.id], (error, results, fields) => {
         if (error) throw error
+
+        let sessionData = {
+          type: 'kakao',
+          token: accessToken,
+          id: profile.id,
+          username: profile.username,
+          isgps: false,
+          isvote: false
+        }
 
         const date = loggerUtil.getYMD() + ' ' + loggerUtil.getHMS()
         const ip = requestIp.getClientIp(req)
@@ -76,10 +77,12 @@ module.exports.init = () => {
 
           connection.release()
         })
+
+        console.log(profile.id + ' logined')
+
+        done(null, sessionData)
       })
     })
-
-    done(null, sessionData)
   }))
   
   passport.serializeUser((sessionData, done) => {

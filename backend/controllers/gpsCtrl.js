@@ -52,7 +52,7 @@ module.exports.gpsCheck = async(req, res) => {
       return
     }*/
     
-    res.user.isgps = true
+    req.user.isgps = true
     res.status(200).json({ 'status': 200 })
   })
   .catch((error) => {
