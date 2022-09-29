@@ -1,4 +1,4 @@
-import VoteSlider from '../components/VoteSlider';
+import Vote from '../components/Vote';
 import css from '../styles/Vote.module.css'
 
 
@@ -7,7 +7,7 @@ const vote = () => {
 
   return (
       <div className={css.wrapper}>
-        <VoteSlider/>
+        <Vote/>
       </div>
   )
 }
