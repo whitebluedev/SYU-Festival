@@ -23,25 +23,53 @@
 
 const fs = require('fs')
 
-module.exports.sessionCheck = (req, res) => {
-  let sessionData = {
-    islogin: false,
-    isgps: false,
-    isvote: false,
-    vote_status: fs.readFileSync('/root/backend/setting.txt', 'utf8', () => {})
-  }
+const mysql = require('../config/mysql')
 
+// BIG ISSUE .. maye be .. fixed..?
+
+module.exports.sessionCheck = (req, res) => {
   if (typeof(req.user) !== 'undefined'){
-    if (req.user.isgps === true){
-      sessionData.isgps = true
-    }
-  
     if (req.user.isvote === true){
-      sessionData.isvote = true
+      mysql.getConnection((error, connection) => {
+        if (error) throw error
+  
+        connection.query('SELECT * FROM auth WHERE kakao_id = ?', [req.user.id], (error, results, fields) => {
+          if (error) throw error
+
+          connection.release()
+
+          if (results[0].vote === null){
+            req.user.isvote = false
+          }
+
+          let sessionData = {
+            islogin: true,
+            isgps: req.user.isgps,
+            isvote: req.user.isvote,
+            vote_status: fs.readFileSync('/root/backend/setting.txt', 'utf8', () => {})
+          }
+
+          res.status(200).json(sessionData)
+        })
+      })
+    }else{
+      let sessionData = {
+        islogin: true,
+        isgps: req.user.isgps,
+        isvote: req.user.isvote,
+        vote_status: fs.readFileSync('/root/backend/setting.txt', 'utf8', () => {})
+      }
+
+      res.status(200).json(sessionData)
+    }
+  }else{
+    let sessionData = {
+      islogin: false,
+      isgps: false,
+      isvote: false,
+      vote_status: fs.readFileSync('/root/backend/setting.txt', 'utf8', () => {})
     }
     
-    sessionData.islogin = true
+    res.status(200).json(sessionData)
   }
-
-  res.status(200).json(sessionData)
 }

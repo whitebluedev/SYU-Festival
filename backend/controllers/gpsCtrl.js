@@ -30,7 +30,7 @@ module.exports.gpsCheck = async(req, res) => {
   const { x, y } = req.body
 
   if (typeof(req.user) === 'undefined'){
-    res.status(401).json({ 'status': 401 })
+    res.status(401).json({ 'msg': '로그인이 되어있지 않습니다.' })
     return
   }
   
@@ -47,15 +47,15 @@ module.exports.gpsCheck = async(req, res) => {
   .then((body) => {
     console.log(body.documents[0].address_name)
     
-    /*if (body.documents[0].address_name != '서울특별시 강북구 번동'){
-      res.status(400).json({ 'status': 400 })
+    /*if (body.documents[0].address_name != '서울특별시 노원구 공릉동'){
+      res.status(400).json({ 'msg': '위치 인증에 실패했습니다.' })
       return
     }*/
     
     req.user.isgps = true
-    res.status(200).json({ 'status': 200 })
+    res.status(200).json({ 'msg': '정상적으로 처리가 되었습니다.'})
   })
   .catch((error) => {
-    res.status(400).json({ 'msg': '알 수 없는 오류 발생' })
+    res.status(400).json({ 'msg': '위치 인증에 실패했습니다.' })
   })
 }

@@ -106,9 +106,8 @@ const getLogo = () => {
 }
 
 const userInfo = (req) => {
-  getInfo('client IP: ' + requestIp.getClientIp(req))
-  getInfo('url: ' + req.originalUrl)
-  getClientCountry(requestIp.getClientIp(req))
+  getInfo('client IP: ' + '\x1b[90m' + requestIp.getClientIp(req) + '\x1b[0m' + ' | url: ' + '\x1b[32m' + req.originalUrl + '\x1b[0m')
+  //getClientCountry(requestIp.getClientIp(req))
 }
 
 module.exports.getInfo = getInfo

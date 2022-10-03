@@ -77,15 +77,13 @@ module.exports.init = () => {
 
           connection.release()
         })
-
-        console.log(profile.id + ' logined')
-
         done(null, sessionData)
       })
     })
   }))
   
   passport.serializeUser((sessionData, done) => {
+    loggerUtil.getInfo('kakao ID: ' + '\x1b[93m' + sessionData.id + '\x1b[0m' + ', kakao login completed')
     done(null, sessionData)
   })
   

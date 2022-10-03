@@ -23,9 +23,10 @@
 
 const express = require('express')
 const expressSession = require('express-session')
+//const FileStore = require('session-file-store')(expressSession)
 const https = require('https')
 const cors = require('cors')
-const logger = require('morgan')
+//const logger = require('morgan')
 const passport = require('passport')
 
 const authConfig = require('./config/auth')
@@ -41,7 +42,7 @@ const app = express()
 app.set('views', __dirname + '/views')
 app.set('view engine', 'ejs')
 
-app.use(logger('dev'))
+//app.use(logger('dev'))
 
 const corsOptions = {
   origin: 'https://re-wind.today',
@@ -58,7 +59,6 @@ app.use(expressSession({
   resave: false,
   saveUninitialized: true,
   cookie: {
-    secure: false,
     maxAge: 1000 * 60 * 60 * 1 // 1 hours
   }
 }))
@@ -68,10 +68,14 @@ authConfig.init()
 app.use(passport.initialize())
 app.use(passport.session())
 
+app.use((req, res, next) => {
+  loggerUtil.userInfo(req)
+  next()
+})
 app.use('/', express.static(__dirname + '/public'))
 app.use('/auth', authRouter)
 app.use('/vote', voteRouter)
-app.use('*', (req, res) => { res.status(404).send('404') })
+app.use('*', (req, res) => { res.status(404).json({ 'msg': '잘못된 요청입니다.' }) })
 
 https.createServer(secuUtil.sslOption, app).listen(444, '0.0.0.0')
 

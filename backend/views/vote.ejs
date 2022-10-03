@@ -2,6 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  <title>RE-WIND 관리자 페이지</title>
   <!-- CSS only -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
   <script>
@@ -51,6 +52,7 @@
         request.onreadystatechange = function(){
           if (request.readyState === 4 && request.status === 200){
             document.getElementById('info').innerHTML = '투표 전체 초기화';
+            disable();
           }
         };
       }
@@ -61,7 +63,102 @@
       request.send();
       request.onreadystatechange = function(){
         if (request.readyState === 4 && request.status === 200){
+          const data = JSON.parse(request.responseText);
+          document.getElementById('time_1').innerHTML = data.date;
+          let vote_ = {};
+          for (let element in data){
+            if (element !== 'date' && element !== 'vote_status'){
+              vote_[element] = data[element].length;
+            }
+          }
+          let sort_ = [];
+          for (let vote in vote_){
+            sort_.push([vote, vote_[vote]]);
+          }
+          sort_.sort(function(a, b){
+            return b[1] - a[1];
+          });
+          const team_name = {
+            'vote_1': '랩으로삼육대를칭칭감지',
+            'vote_2': 'Open your eyes',
+            'vote_3': '장주안',
+            'vote_4': '고음불가',
+            'vote_5': 'D.M',
+            'vote_6': '김주연',
+            'vote_7': '이성신',
+            'vote_8': '성시경티',
+            'vote_9': 'PLAGUE'
+          };
+          let html_tag = '';
+          let rank_count = 0;
+          let vote_count = 0;
+          sort_.forEach(element => { // rank, team num, team name, vote count
+            vote_count += element[1];
+            rank_count++;
+            if (rank_count <= 3){
+              html_tag += `
+              <tr>
+                <th scope="row">${rank_count}</th>
+                <td>${element[0]}</td>
+                <td>${team_name[element[0]]}</td>
+                <td>
+                  <strong><span style="color: yellow;">${element[1]}</span></strong>
+                </td>
+              </tr>
+              `;
+            }else{
+              html_tag += `
+              <tr>
+                <th scope="row"><span style="color: #5f6062;">${rank_count}</th>
+                <td><span style="color: #5f6062;">${element[0]}</td>
+                <td><span style="color: #5f6062;">${team_name[element[0]]}</td>
+                <td>
+                  <strong><span style="color: yellow;">${element[1]}</span></strong>
+                </td>
+              </tr>
+              `;
+            }
+          });
+          const table_tag = `
+          <table class="table table-dark">
+            <thead>
+              <tr>
+                <th scope="col">순위</th>
+                <th scope="col">팀 번호</th>
+                <th scope="col">팀 이름</th>
+                <th scope="col">투표 수</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${html_tag}
+              <tr>
+                <th scope="row"> </th>
+                <td> </td>
+                <td> </td>
+                <td>
+                  <strong><span style="color: #00ff00">${vote_count}</span></strong>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          `;
+          const vote_tag = `
+          <br/>
+          <p>총 ${vote_count / 2}명이 투표를 했습니다.</p>
+          `;
+          document.getElementById('vote_now').innerHTML = table_tag;
+          document.getElementById('vote_real_count').innerHTML = vote_tag;
+        }
+      };
+    }
+    /*function voteCheck(){
+      const request = new XMLHttpRequest();
+      request.open('GET', 'https://re-wind.today:444/vote/votegetall', true);
+      request.send();
+      request.onreadystatechange = function(){
+        if (request.readyState === 4 && request.status === 200){
           const data = JSON.parse(request.responseText)
+          document.getElementById('date').innerHTML = data.date
           document.getElementById('vote_1').innerHTML = data.vote_1.length
           document.getElementById('vote_2').innerHTML = data.vote_2.length
           document.getElementById('vote_3').innerHTML = data.vote_3.length
@@ -74,14 +171,16 @@
           document.getElementById('vote_count').innerHTML = data.vote_1.length + data.vote_2.length + data.vote_3.length + data.vote_4.length + data.vote_5.length + data.vote_6.length + data.vote_7.length + data.vote_8.length + data.vote_9.length;
         }
       };
-    }
+    }*/
     function voteGetAll(){
       const request = new XMLHttpRequest();
       request.open('GET', 'https://re-wind.today:444/vote/votegetall', true);
       request.send();
       request.onreadystatechange = function(){
         if (request.readyState === 4 && request.status === 200){
-          document.getElementById('vote').innerHTML = JSON.stringify(JSON.parse(request.responseText), undefined, 2);
+          const data = JSON.parse(request.responseText);
+          document.getElementById('time_2').innerHTML = data.date;
+          document.getElementById('vote_raw').innerHTML = JSON.stringify(data, undefined, 2);
         }
       };
     }
@@ -104,8 +203,11 @@
     body {
       background: rgb(41, 41, 41);
       color: white;
-      font-size:18px;
+      font-size:17px;
       font-family:'NanumSquare', sans-serif;
+    }
+    p {
+      margin-left: 1rem;
     }
     .btn {
       width: 100%;
@@ -117,117 +219,157 @@
       margin-top: 10px;
       background-color:transparent;
     }
+    .table-dark {
+      /*--bs-table-color: yellow;*/
+      --bs-table-bg: #00000000;
+      --bs-table-border-color: white;
+    }
+    .card {
+      background-color: #00000000;
+      border: white;
+    }
   </style>
 </head>
 <body>
-  <br/>
   <div class="container">
-    <h1>RE-WIND 2022 - 관리자 전용 페이지</h1>
-    <br/>
-    <br/>
-    <h2>실시간 투표 상태: <span id="info"></span></h2>
-    <hr/>
-    <br/>
-    <button type="button" class="btn" style="font-size: large;" onclick="disable()">투표 비활성화 (투표 대기)</button>
-    <br/>
-    <button type="button" class="btn" style="font-size: large;" onclick="enable()">투표 활성화 (투표 시작)</button>
-    <br/>
-    <button type="button" class="btn" style="font-size: large;" onclick="result()">투표 결과 공개 (투표 종료)</button>
-    <br/>
-    <button type="button" class="btn" style="font-size: large; color:red;" onclick="disable(); voteRemoveAll();">투표 전체 초기화 (동점자 발생시)</button>
-    <br/>
-    <br/>
-    <br/>
-    <h2>실시간 투표 현황</h2>
-    <hr/>
-    <br/>
-    <br>
-    <button type="button" class="btn" style="font-size: large;" onclick="voteCheck()">투표 현황 확인</button>
-    <br/>
-    <br/>
-    <table class="table table-dark">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">팀 이름</th>
-          <th scope="col">투표 수</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">vote_1</th>
-          <td>랩으로삼육대를칭칭감지</td>
-          <td><span id="vote_1"></span></td>
-        </tr>
-        <tr>
-          <th scope="row">vote_2</th>
-          <td>Open your eyes</td>
-          <td><span id="vote_2"></span></td>
-        </tr>
-        <tr>
-          <th scope="row">vote_3</th>
-          <td>장주안</td>
-          <td><span id="vote_3"></span></td>
-        </tr>
-        <tr>
-          <th scope="row">vote_4</th>
-          <td>고음불가</td>
-          <td><span id="vote_4"></span></td>
-        </tr>
-        <tr>
-          <th scope="row">vote_5</th>
-          <td>D.M</td>
-          <td><span id="vote_5"></span></td>
-        </tr>
-        <tr>
-          <th scope="row">vote_6</th>
-          <td>김주연</td>
-          <td><span id="vote_6"></span></td>
-        </tr>
-        <tr>
-          <th scope="row">vote_7</th>
-          <td>이성신</td>
-          <td><span id="vote_7"></span></td>
-        </tr>
-        <tr>
-          <th scope="row">vote_8</th>
-          <td>성시경티</td>
-          <td><span id="vote_8"></span></td>
-        </tr>
-        <tr>
-          <th scope="row">vote_9</th>
-          <td>PLAGUE</td>
-          <td><span id="vote_9"></span></td>
-        </tr>
-        <tr>
-          <th scope="row">합계</th>
-          <td></td>
-          <td><span id="vote_count"></span></td>
-        </tr>
-      </tbody>
-    </table>
-    <br/>
-    <br/>
-    <br/>
-    <h2>RAW DATA</h2>
-    <hr/>
-    <br/>
-    <pre>
-      vote_1 -> 랩으로삼육대를칭칭감지
-      vote_2 -> Open your eyes
-      vote_3 -> 장주안
-      vote_4 -> 고음불가
-      vote_5 -> D.M
-      vote_6 -> 김주연
-      vote_7 -> 이성신
-      vote_8 -> 성시경티
-      vote_9 -> PLAGUE
-    </pre>
-    <br>
-    <button type="button" class="btn" style="font-size: large;" onclick="voteGetAll()">RAW DATA CHECK</button>
-    <br/>
-    <br/>
-    <pre><span id="vote"></span></pre>
+    <div style="padding: 30px 0px 0px 0px">
+      <div style="font-size: 40px">
+        <strong>RE-WIND 2022 - 관리자 전용 페이지</strong>
+      </div>
+    </div>
+    <div style="padding: 0px 0px 30px 0px">
+      <p>안녕하세요, 관리자 <%=info%> 님</p>
+      <br/>
+      <details>
+        <summary style="color:yellow">관리자 메뉴얼 보기..</summary>
+        <br/>
+        <div class="border border-white">
+          <br/>
+          <p>비상 연락망 안내</p>
+          <p>김상윤 연락처: 010-7631-3149</p>
+          <p>김지윤 연락처: 010-5175-5391</p>
+          <p>임채진 연락처: 010-4917-9704</p>
+        </div>
+        <br/>
+        <div class="border border-white">
+          <br/>
+          <p>투표 비활성화 : 투표 기본값 , 유저들이 투표를 할 수 없습니다.</p>
+          <p>투표 활성화 : 투표 시작값, 유저들이 투표를 할 수 있습니다.</p>
+          <p>투표 결과 공개 : 투표 종료값, 유저들이 투표를 할 수 없습니다. 투표 결과가 공개 됩니다.</p>
+          <p>투표 전체 초기화 : 동점자 수 발생 시에 투표 초기화, 데이터 초기화 뒤 다시 비활성화 값으로 돌아갑니다.</p>
+        </div>
+      </details>
+    </div>
+    <div style="padding: 30px 0px 30px 0px">
+      <h2>실시간 투표 상태: <strong><span id="info"></span></strong></h2>
+      <hr/>
+      <br/>
+      <button type="button" class="btn" style="font-size: large;" onclick="disable();">투표 비활성화 (투표 대기)</button>
+      <br/>
+      <button type="button" class="btn" style="font-size: large;" onclick="enable();">투표 활성화 (투표 시작)</button>
+      <br/>
+      <button type="button" class="btn" style="font-size: large;" onclick="result();">투표 결과 공개 (투표 종료)</button>
+      <br/>
+      <button type="button" class="btn" style="font-size: large; color:red;" onclick="voteRemoveAll();">투표 전체 초기화 (동점자 발생시)</button>
+    </div>
+    <div style="padding: 30px 0px 30px 0px">
+      <h2>실시간 투표 현황: <strong><span id="time_1"></span></strong></h2>
+      <hr/>
+      <br/>
+      <button type="button" class="btn" style="font-size: large;" onclick="voteCheck();">투표 현황 확인</button>
+      <br/>
+      <br/>
+      <div id="vote_now"></div>
+      <div id="vote_real_count"></div>
+      <!--<table class="table table-dark">
+        <thead>
+          <tr>
+            <th scope="col">순위</th>
+            <th scope="col">팀 번호</th>
+            <th scope="col">팀 이름</th>
+            <th scope="col">투표 수</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">vote_1</th>
+            <td>랩으로삼육대를칭칭감지</td>
+            <td><span id="vote_1" style="color: yellow;"></span></td>
+          </tr>
+          <tr>
+            <th scope="row">vote_2</th>
+            <td>Open your eyes</td>
+            <td><span id="vote_2" style="color: yellow;"></span></td>
+          </tr>
+          <tr>
+            <th scope="row">vote_3</th>
+            <td>장주안</td>
+            <td><span id="vote_3" style="color: yellow;"></span></td>
+          </tr>
+          <tr>
+            <th scope="row">vote_4</th>
+            <td>고음불가</td>
+            <td><span id="vote_4" style="color: yellow;"></span></td>
+          </tr>
+          <tr>
+            <th scope="row">vote_5</th>
+            <td>D.M</td>
+            <td><span id="vote_5" style="color: yellow;"></span></td>
+          </tr>
+          <tr>
+            <th scope="row">vote_6</th>
+            <td>김주연</td>
+            <td><span id="vote_6" style="color: yellow;"></span></td>
+          </tr>
+          <tr>
+            <th scope="row">vote_7</th>
+            <td>이성신</td>
+            <td><span id="vote_7" style="color: yellow;"></span></td>
+          </tr>
+          <tr>
+            <th scope="row">vote_8</th>
+            <td>성시경티</td>
+            <td><span id="vote_8" style="color: yellow;"></span></td>
+          </tr>
+          <tr>
+            <th scope="row">vote_9</th>
+            <td>PLAGUE</td>
+            <td><span id="vote_9" style="color: yellow;"></span></td>
+          </tr>
+          <tr>
+            <th scope="row">합계</th>
+            <td></td>
+            <td><span id="vote_count" style="color: rgb(60, 255, 0);"></span></td>
+          </tr>
+        </tbody>
+      </table>-->
+    </div>
+    <div style="padding: 30px 0px 30px 0px">
+      <h2>VOTE RAW DATA: <strong><span id="time_2"></span></strong></h2>
+      <hr/>
+      <br/>
+      <details>
+        <summary style="color:yellow">TEAM NAME VIEW..</summary>
+        <br/>
+        <div class="border border-white">
+          <br/>
+          <p>vote_1 -> 랩으로삼육대를칭칭감지</p>
+          <p>vote_2 -> Open your eyes</p>
+          <p>vote_3 -> 장주안</p>
+          <p>vote_4 -> 고음불가</p>
+          <p>vote_5 -> D.M</p>
+          <p>vote_6 -> 김주연</p>
+          <p>vote_7 -> 이성신</p>
+          <p>vote_8 -> 성시경티</p>
+          <p>vote_9 -> PLAGUE</p>
+        </div>
+      </details>
+      <br/>
+      <button type="button" class="btn" style="font-size: large;" onclick="voteGetAll()">RAW DATA CHECK</button>
+      <br/>
+      <br/>
+      <pre><span id="vote_raw"></span></pre>
+    </div>
   </div>
 </body>
 </html>

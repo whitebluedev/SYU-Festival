@@ -22,13 +22,14 @@
  */
 
 const express = require('express')
+const { body, validationResult } = require('express-validator')
 
 const voteUserCtrl = require('../controllers/voteUserCtrl')
 const voteAdminCtrl = require('../controllers/voteAdminCtrl')
 
 const router = express.Router()
 
-router.post('/vote', voteUserCtrl.vote)
+router.post('/vote', body('ids').exists(), voteUserCtrl.vote)
 
 router.get('/voteManager', voteAdminCtrl.voteManager)
 

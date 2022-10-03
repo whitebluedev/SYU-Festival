@@ -21,26 +21,24 @@
  * 
  */
 
-const fs = require('fs')
-
+const { body, validationResult } = require('express-validator')
+ 
 const mysql = require('../config/mysql')
 const loggerUtil = require('../utils/logger')
 
-const isNumeric = (value) => {
-  if (typeof value === 'number'){
-    return value - value === 0
-  }
-  if (typeof value === 'string' && value.trim() !== ''){
-    return Number.isFinite ? Number.isFinite(+value) : isFinite(+value)
-  }
-  return false
-}
-
-// voteUserCtrl.js
-// voteAdminCtrl.js
-
 module.exports.vote = (req, res) => {
-  const ids = req.body.ids // array
+  const errorFormatter = ({ location, msg, param, value, nestedErrors }) => {
+    return param + ': ' + msg
+  }
+  
+  const result = validationResult(req).formatWith(errorFormatter)
+  
+  if (!result.isEmpty()){
+    res.status(401).json(result)
+    return
+  }
+
+  const ids = req.body.ids
 
   const votes = {
     'vote_1': true,
@@ -51,12 +49,7 @@ module.exports.vote = (req, res) => {
     'vote_6': true,
     'vote_7': true,
     'vote_8': true,
-    'vote_9': true,
-  }
-
-  if (typeof(req.user) === 'undefined'){
-    res.status(401).json({ 'msg': '로그인이 되어있지 않습니다.' })
-    return
+    'vote_9': true
   }
 
   if (Array.isArray(ids) === false){
@@ -64,7 +57,7 @@ module.exports.vote = (req, res) => {
     return
   }
 
-  if (ids.length > 2){
+  if (ids.length !== 2){
     res.status(401).json({ 'msg': '잘못된 요청입니다. (2)' })
     return
   }
@@ -75,6 +68,11 @@ module.exports.vote = (req, res) => {
       return
     }
   })
+
+  if (typeof(req.user) === 'undefined'){
+    res.status(401).json({ 'msg': '로그인이 되어있지 않습니다.' })
+    return
+  }
 
   if (req.user.isgps === false){
     res.status(401).json({ 'msg': '위치 인증이 되어있지 않습니다.' })

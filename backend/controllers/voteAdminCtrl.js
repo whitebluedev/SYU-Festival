@@ -28,70 +28,72 @@ const loggerUtil = require('../utils/logger')
 
 module.exports.voteManager = (req, res) => {
   if (typeof(req.user) === 'undefined'){
-    res.status(401).json({ 'status': 401 })
+    res.status(401).json({ 'msg': '로그인이 되어있지 않습니다.' })
     return
   }
 
-  if (req.user.id != '2422524396'){ // admin kakao id
-    res.status(401).json({ 'status': 401 })
+  if (req.user.id != '2422524396' && req.user.id != '2438047578' && req.user.id != '2434729902'){ // admin kakao id
+    res.status(401).json({ 'msg': '관리자 권한이 없습니다.' })
     return
   }
 
-  res.render('vote')
+  let datas = {
+    2422524396: '김상윤',
+    2438047578: '임채진',
+    2434729902: '김지윤'
+  }
+
+  res.render('vote', { info: datas[req.user.id] })
 }
 
 module.exports.status = (req, res) => {
   const setting = fs.readFileSync('/root/backend/setting.txt', 'utf8', () => {})
-
   res.status(200).json({ status: setting })
 }
 
 module.exports.statusDisable = (req, res) => {
   if (typeof(req.user) === 'undefined'){
-    res.status(401).json({ 'status': 401 })
+    res.status(401).json({ 'msg': '로그인이 되어있지 않습니다.' })
     return
   }
 
-  if (req.user.id != '2422524396'){ // admin kakao id
-    res.status(401).json({ 'status': 401 })
+  if (req.user.id != '2422524396' && req.user.id != '2438047578' && req.user.id != '2434729902'){ // admin kakao id
+    res.status(401).json({ 'msg': '관리자 권한이 없습니다.' })
     return
   }
 
   fs.writeFileSync('/root/backend/setting.txt', 'disable', 'utf8', () => {})
-
-  res.status(200).json({})
+  res.status(200).json({ 'msg': '정상적으로 처리가 되었습니다.'})
 }
 
 module.exports.statusEnable = (req, res) => {
   if (typeof(req.user) === 'undefined'){
-    res.status(401).json({ 'status': 401 })
+    res.status(401).json({ 'msg': '로그인이 되어있지 않습니다.' })
     return
   }
 
-  if (req.user.id != '2422524396'){ // admin kakao id
-    res.status(401).json({ 'status': 401 })
+  if (req.user.id != '2422524396' && req.user.id != '2438047578' && req.user.id != '2434729902'){ // admin kakao id
+    res.status(401).json({ 'msg': '관리자 권한이 없습니다.' })
     return
   }
 
   fs.writeFileSync('/root/backend/setting.txt', 'enable', 'utf8', () => {})
-
-  res.status(200).json({})
+  res.status(200).json({ 'msg': '정상적으로 처리가 되었습니다.'})
 }
 
 module.exports.statusResult = (req, res) => {
   if (typeof(req.user) === 'undefined'){
-    res.status(401).json({ 'status': 401 })
+    res.status(401).json({ 'msg': '로그인이 되어있지 않습니다.' })
     return
   }
 
-  if (req.user.id != '2422524396'){ // admin kakao id
-    res.status(401).json({ 'status': 401 })
+  if (req.user.id != '2422524396' && req.user.id != '2438047578' && req.user.id != '2434729902'){ // admin kakao id
+    res.status(401).json({ 'msg': '관리자 권한이 없습니다.' })
     return
   }
 
   fs.writeFileSync('/root/backend/setting.txt', 'result', 'utf8', () => {})
-
-  res.status(200).json({})
+  res.status(200).json({ 'msg': '정상적으로 처리가 되었습니다.'})
 }
 
 module.exports.voteGetAll = (req, res) => {
@@ -104,6 +106,8 @@ module.exports.voteGetAll = (req, res) => {
       connection.release()
 
       let voteData = {
+        'vote_status': fs.readFileSync('/root/backend/setting.txt', 'utf8', () => {}),
+        'date': loggerUtil.getYMD() + ' ' + loggerUtil.getHMS(),
         'vote_1': [],
         'vote_2': [],
         'vote_3': [],
@@ -112,8 +116,10 @@ module.exports.voteGetAll = (req, res) => {
         'vote_6': [],
         'vote_7': [],
         'vote_8': [],
-        'vote_9': [],
+        'vote_9': []
       }
+
+      //res.status(200).json(voteData)
 
       if (results.length <= 0){
         res.status(200).json(voteData)
@@ -122,20 +128,29 @@ module.exports.voteGetAll = (req, res) => {
 
       results.forEach(votes => {
         const users = JSON.parse(votes.users)
-
         for (let key in voteData){
           if (users.vote_id === key){
             voteData[key].push(users)
           }
         }
       })
-
+      
       res.status(200).json(voteData)
     })
   })
 }
 
 module.exports.voteRemoveAll = (req, res) => {
+  if (typeof(req.user) === 'undefined'){
+    res.status(401).json({ 'msg': '로그인이 되어있지 않습니다.' })
+    return
+  }
+  
+  if (req.user.id != '2422524396' && req.user.id != '2438047578' && req.user.id != '2434729902'){ // admin kakao id
+    res.status(401).json({ 'msg': '관리자 권한이 없습니다.' })
+    return
+  }
+
   mysql.getConnection((error, connection) => {
     if (error) throw error
 
@@ -150,5 +165,5 @@ module.exports.voteRemoveAll = (req, res) => {
     connection.release()
   })
 
-  res.status(200).json({})
+  res.status(200).json({ 'msg': '정상적으로 처리가 되었습니다.'})
 }
