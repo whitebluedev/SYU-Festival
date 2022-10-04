@@ -5,7 +5,7 @@
   <script>
     function gpsp(){
       const request = new XMLHttpRequest();
-      request.open('POST', "http://localhost/auth/gpsCheck", true);
+      request.open('POST', "https://re-wind.today:444/auth/gpsCheck", true);
       request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
       request.send('x=' + document.getElementById('x').value + '&y=' + document.getElementById('y').value);
       request.onreadystatechange = () => {

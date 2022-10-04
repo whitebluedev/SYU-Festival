@@ -31,6 +31,7 @@ const router = express.Router()
 
 router.post('/vote', body('ids').exists(), voteUserCtrl.vote)
 
+router.get('/voteGPS', voteAdminCtrl.voteGPS)
 router.get('/voteManager', voteAdminCtrl.voteManager)
 
 router.get('/status', voteAdminCtrl.status)

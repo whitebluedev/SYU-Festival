@@ -21,12 +21,24 @@
  * 
  */
 
-
+const { body, validationResult } = require('express-validator')
 const request = require('request-promise')
 
 const secuUtil = require('../utils/secu')
+const loggerUtil = require('../utils/logger')
 
 module.exports.gpsCheck = async(req, res) => {
+  const errorFormatter = ({ location, msg, param, value, nestedErrors }) => {
+    return param + ': ' + msg
+  }
+  
+  const result = validationResult(req).formatWith(errorFormatter)
+  
+  if (!result.isEmpty()){
+    res.status(401).json(result)
+    return
+  }
+
   const { x, y } = req.body
 
   if (typeof(req.user) === 'undefined'){
@@ -45,17 +57,20 @@ module.exports.gpsCheck = async(req, res) => {
   
   await request(option)
   .then((body) => {
-    console.log(body.documents[0].address_name)
-    
-    /*if (body.documents[0].address_name != '서울특별시 노원구 공릉동'){
+    if (body.documents[0].address_name != '서울특별시 노원구 공릉동'){
+      req.user.isgps = false
+      loggerUtil.getInfo('kakao ID: ' + '\x1b[93m' + req.user.id + '\x1b[0m' + ', gps failed, ' + body.documents[0].address_name)
       res.status(400).json({ 'msg': '위치 인증에 실패했습니다.' })
       return
-    }*/
+    }
     
     req.user.isgps = true
+    loggerUtil.getInfo('kakao ID: ' + '\x1b[93m' + req.user.id + '\x1b[0m' + ', gps completed, ' + body.documents[0].address_name)
     res.status(200).json({ 'msg': '정상적으로 처리가 되었습니다.'})
   })
   .catch((error) => {
+    req.user.isgps = false
+    loggerUtil.getInfo('kakao ID: ' + '\x1b[93m' + req.user.id + '\x1b[0m' + ', gps failed')
     res.status(400).json({ 'msg': '위치 인증에 실패했습니다.' })
   })
 }

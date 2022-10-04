@@ -120,6 +120,7 @@ module.exports.vote = (req, res) => {
       connection.release()
 
       req.user.isvote = true
+      loggerUtil.getInfo('kakao ID: ' + '\x1b[93m' + req.user.id + '\x1b[0m' + ', vote completed')
       res.status(200).json({ 'msg': '투표가 정상적으로 처리되었습니다.' })
     })
   })

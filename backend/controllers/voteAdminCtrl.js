@@ -26,6 +26,10 @@ const fs = require('fs')
 const mysql = require('../config/mysql')
 const loggerUtil = require('../utils/logger')
 
+module.exports.voteGPS = (req, res) => {
+  res.render('gps')
+}
+
 module.exports.voteManager = (req, res) => {
   if (typeof(req.user) === 'undefined'){
     res.status(401).json({ 'msg': '로그인이 되어있지 않습니다.' })
@@ -118,6 +122,21 @@ module.exports.voteGetAll = (req, res) => {
         'vote_8': [],
         'vote_9': []
       }
+
+      // TEST DATA
+      // let voteData = {
+      //   'vote_status': fs.readFileSync('/root/backend/setting.txt', 'utf8', () => {}),
+      //   'date': loggerUtil.getYMD() + ' ' + loggerUtil.getHMS(),
+      //   'vote_1': [{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},],
+      //   'vote_2': [{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},],
+      //   'vote_3': [{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},],
+      //   'vote_4': [{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},],
+      //   'vote_5': [{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},],
+      //   'vote_6': [{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},],
+      //   'vote_7': [{1: true},{1: true},],
+      //   'vote_8': [{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},],
+      //   'vote_9': [{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},{1: true},]
+      // }
 
       //res.status(200).json(voteData)
 

@@ -25,8 +25,6 @@ const fs = require('fs')
 
 const mysql = require('../config/mysql')
 
-// BIG ISSUE .. maye be .. fixed..?
-
 module.exports.sessionCheck = (req, res) => {
   if (typeof(req.user) !== 'undefined'){
     if (req.user.isvote === true){

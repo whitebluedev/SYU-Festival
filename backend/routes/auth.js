@@ -22,6 +22,7 @@
  */
 
 const express = require('express')
+const { body, validationResult } = require('express-validator')
 
 const gpsCtrl = require('../controllers/gpsCtrl')
 const kakaoAuth = require('../controllers/kakaoAuth')
@@ -32,7 +33,7 @@ const router = express.Router()
 
 router.get('/sessionCheck', sessionCtrl.sessionCheck) // { islogin, isgps, isvote }
 
-router.post('/gpsCheck', gpsCtrl.gpsCheck)
+router.post('/gpsCheck', body('x').exists(), body('y').exists(), gpsCtrl.gpsCheck)
 
 router.get('/kakao/login', kakaoAuth.loginCheck, kakaoAuth.login)
 router.get('/kakao/logout', kakaoAuth.logoutCheck, kakaoAuth.logout)
