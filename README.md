@@ -3,7 +3,7 @@
 
 ### Front-End
 [@waeandway](https://github.com/waeandway) <br>
-💻 Next.js
+**Next.js | React**
 
 
 ### Back-End 
