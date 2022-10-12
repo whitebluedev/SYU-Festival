@@ -7,9 +7,11 @@ import 'semantic-ui-css/semantic.min.css'
 
 function App({ Component, Page }) {
   return (
-    <div>
-      <div className='nav'><Nav/></div>
-     <Layout><Component {...Page} /></Layout>
+    <div className='wrapper'>
+     <Nav/>
+     <Layout>
+      <Component {...Page}/>
+     </Layout>
       <div className='footer'>COPYRIGHT © 2022 Whiteblue SYU Security Club. ALL RIGHTS RESERVED.</div>    
    </div>
   )

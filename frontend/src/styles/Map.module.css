@@ -1,0 +1,350 @@
+.wrapper {
+    padding-bottom: 100%;
+    text-align: center;
+}
+.title {
+    display: inline-block;
+    font-family: 'GangwonEduPowerExtraBoldA';
+    font-size: 3rem;
+    color: #fff;
+    margin: 3% 0 4% 0;
+}
+.title:hover {
+    cursor: default;
+}
+
+
+/*------------------ Booth Map --------------------*/
+.bthAll {
+    background-image: url('../public/bthAll.png');
+    background-size: cover;
+    border-radius: 20px;
+    margin: 0 30% 0 10%;
+    width: 700px;
+    height: 500px;
+}
+
+/*------------------ Radio Button (in Booth Map) --------------------*/
+.rad {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    position: absolute;
+    background-color: transparent;
+    border: 1px solid rgb(132, 187, 255);
+    border-radius: 5px;
+    transition: all .3s;
+}
+
+
+
+.rad:hover {
+    cursor: pointer;
+}
+.rad:checked {
+    border-radius: 50%;
+    width: 90px;
+    height: 90px;
+    border: 2px solid rgba(40, 216, 0, 0.387);
+}
+.food:checked {
+    width: 70px;
+    height: 70px;
+}
+.sol:checked .solEx {
+    display: inline;
+}
+
+.where { /* ! 글자 위치 ! */
+    display: none;
+    position: absolute;
+    top: 75%;
+    left: 8%;
+    font-size: 1.8em;
+    text-align: right;
+    color:rgb(203, 64, 64);
+    text-shadow: 1px 1px 5px rgb(41, 41, 41);
+}
+.where:hover {
+    cursor: default ;
+}
+.p {
+    font-family: 'S-CoreDream-3Light';
+    font-weight: 200;
+    text-align: left;
+}
+.span, .span * {
+    font-family: 'S-CoreDream-3Light';
+}
+.hg {
+    color: rgb(11, 97, 0);
+}
+
+
+
+
+
+
+/*---------------------- Media Query (Screen) ----------------------*/
+@media (max-width: 280px) { /* Galaxy Fold */
+    .where {
+        display: none;
+    }
+
+}
+
+@media (min-width: 281px) and (max-width: 375px) { /* iPhone SE & X*/
+    .dev {
+        display: none;
+    }
+    .title {
+        font-size: 2em;
+    }
+    .bthAll {
+        margin: 0 auto;
+        width: 340px;
+        height: 340px;
+    }
+    /*---- 장소별 라디오값 (도서관 앞/솔로문 광장/다니엘관 앞/푸드트럭) ------*/
+    .univ {
+        width: 70px;
+        height: 70px;
+        right: 270px;
+        top: 180px;
+        transform: rotate(-17.7deg);
+    }
+    .sol {
+        width: 70px;
+        height:80px;
+        right:235px;
+        top: 270px;
+        transform: rotate(-19deg);
+    }
+    .han {
+        width: 70px;
+        height: 100px;
+        top: 320px;
+        left: 260px;
+        transform: rotate(-19deg);
+    }
+    .food {
+        width: 70px;
+        height: 40px;
+        right: 160px;
+        top: 270px;
+        transform: rotate(-17deg);
+    }
+    /*---- 장소별 설명 (도서관 앞/솔로문 광장/다니엘관 앞/푸드트럭) ------*/
+
+    .univEx, .solEx, .hanEx, .foodEx {
+        transition: .3s;
+        display: none;
+        font-size: 1.1em;
+        right: 50%
+    }
+    .univ:checked + .univEx {
+        display: inline-block;
+    }
+
+    .sol:checked + .solEx {
+        display: inline-block;
+    }
+
+    .han:checked + .hanEx {
+        display: inline-block;
+    }
+    .food:checked + .foodEx {
+        display: inline-block;
+    }
+
+    .where { /* ! 글자 위치 ! */
+        display: inline-block;
+        position: absolute;
+        top: 80%;
+        left: 8%;
+        font-size: 1.8em;
+        text-align: left;
+        font-family: 'MICEGothic Bold';
+        color: rgb(52, 36, 36);
+    }   
+}
+
+
+
+@media (min-width: 376px) and (max-width: 480px) { /* iPhone Pro */
+    .dev {
+        display: none;
+    }
+    .title {
+        font-size: 2em;
+    }
+    .bthAll {
+        margin: 3% 2% 1% 2%;
+        width: 370px;
+        height: 370px;
+    }
+    /*---- 장소별 라디오값 (도서관 앞/솔로문 광장/다니엘관 앞/푸드트럭) ------*/
+    .univ {
+        width: 90px;
+        height: 90px;
+        right: 275px;
+        top: 200px;
+        transform: rotate(-17.7deg);
+    }
+    .sol {
+        width: 80px;
+        height:90px;
+        right:260px;
+        top: 290px;
+        transform: rotate(-19deg);
+    }
+    .han {
+        width: 90px;
+        height: 120px;
+        top: 349px;
+        left: 270px;
+        transform: rotate(-19deg);
+    }
+    .food {
+        width: 75px;
+        height: 50px;
+        right: 170px;
+        top: 300px;
+        transform: rotate(-17deg);
+    }
+    /*---- 장소별 설명 (도서관 앞/솔로문 광장/다니엘관 앞/푸드트럭) ------*/
+
+    .univEx, .solEx, .hanEx, .foodEx {
+        transition: .3s;
+        display: none;
+        font-size: 1.1em;
+        right: 50%
+    }
+    .univ:checked + .univEx {
+        display: inline-block;
+    }
+
+    .sol:checked + .solEx {
+        display: inline-block;
+    }
+
+    .han:checked + .hanEx {
+        display: inline-block;
+    }
+    .food:checked + .foodEx {
+        display: inline-block;
+    }
+
+    .where { /* ! 글자 위치 ! */
+        display: inline-block;
+        position: absolute;
+        top: 56%;
+        left: 8%;
+        font-size: 1.8em;
+        text-align: left;
+        font-family: 'MICEGothic Bold';
+        color: rgb(52, 36, 36);
+    }   
+    .p {
+        display: inline-block;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 767px) { 
+    .dev {
+        display: none;
+    }
+    .title {
+        font-size: 2em;
+    }
+    .bthAll {
+        margin: 3% 1% 1% 2%;
+        width: 400px;
+        height: 400px;
+    }
+    /*---- 장소별 라디오값 (도서관 앞/솔로문 광장/다니엘관 앞/푸드트럭) ------*/
+    .univ {
+        width: 100px;
+        height: 100px;
+        right: 275px;
+        top: 170px;
+        transform: rotate(-17.7deg);
+    }
+    .sol {
+        width: 80px;
+        height:90px;
+        right:265px;
+        top: 290px;
+        transform: rotate(-19deg);
+    }
+    .han {
+        width: 90px;
+        height: 140px;
+        top: 349px;
+        left: 280px;
+        transform: rotate(-19deg);
+    }
+    .food {
+        width: 85px;
+        height: 50px;
+        right: 170px;
+        top: 300px;
+        transform: rotate(-17deg);
+    }
+    /*---- 장소별 설명 (도서관 앞/솔로문 광장/다니엘관 앞/푸드트럭) ------*/
+
+    .univEx, .solEx, .hanEx, .foodEx {
+        transition: .3s;
+        display: none;
+        font-size: 1.1em;
+        right: 50%
+    }
+    .univ:checked + .univEx {
+        display: inline-block;
+    }
+
+    .sol:checked + .solEx {
+        display: inline-block;
+    }
+
+    .han:checked + .hanEx {
+        display: inline-block;
+    }
+    .food:checked + .foodEx {
+        display: inline-block;
+    }
+
+    .where { /* ! 글자 위치 ! */
+        display: inline-block;
+        position: absolute;
+        top: 80%;
+        left: 8%;
+        font-size: 1.8em;
+        text-align: left;
+        font-family: 'MICEGothic Bold';
+        color: rgb(52, 36, 36);
+    }   
+
+}
+
+@media (min-width: 768px) and (max-width: 1023px) { /* iPad Air */
+    .bthAll {
+        margin: 0 auto;
+        width: 400px;
+        height: 400px;
+    }
+    .where {
+        display: none;
+    }
+    
+
+}
+
+@media (min-width: 1024px) and (max-width: 1280px) { /* iPad Pro */
+    
+}
+
+@media (min-width: 1281px) { /* PC */
+    .where {
+        display: none;
+    }
+}

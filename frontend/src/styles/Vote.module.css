@@ -1,224 +1,531 @@
-.container {
-    background-color: transparent;
+
+.wrapper {
+    background: linear-gradient(to left, #BC7097, #E6D0DB);
+    padding-bottom: 11%;
+}
+.innerWrapper {
     text-align: center;
-    padding-top: 2%;
+    padding:0 0 3% 0;
+}
+.ex { /* 로직 설명 */
+    margin-top: 3%;
+    color: white;
+    text-align: center;
+    font-size: 1.5em;
+    font-family: 'S-CoreDream-3Light';
+}
+.ex:hover {
+    cursor: default;
+}
+.bottom {
+    padding-bottom: 123%;
+}
+.voteBottom {
+    padding: 100%;
 }
 
-
-.title {
-    font-style: italic;
-    padding: 1% 5% 1% 5%;
-    margin: 0 0 2% 0;
-    background-color: #D199BA;
-    font-size: 3em;
-
+/*------------------ Grid Container (Card) ------------------*/
+.container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-areas: 
+    "rap oye jja"
+    "csh dm kjy"
+    "lss ssgt plague";
 }
-
-/*------------------------ Slider -----------------------*/
-.slider {
-    padding: 1%;
+.rap_card {
+    grid-area: rap;
 }
+.rap_card > .img {
+    background-image: url('../public/rap.jpeg');
+}
+.oye_card {
+    grid-area: oye;
+}
+.oye_card > .img {
+    background-image: url('../public/open_your_eyes.jpeg');
+}
+.jja_card {
+    grid-area: jja;
+}
+.jja_card > .img {
+    background-image: url('../public/jja.jpeg');
+}
+.csh_card {
+    grid-area: csh;
+}
+.csh_card > .img {
+    background-image: url('../public/cant_sing_high.jpeg');
+}
+.dm_card {
+    grid-area: dm;
+}
+.dm_card > .img {
+    background-image: url('../public/dm.jpeg');
+}
+.kjy_card {
+    grid-area: kjy;
+}
+.kjy_card > .img {
+    background-image: url('../public/kjy.jpeg');
+}
+.lss_card {
+    grid-area: lss;
+}
+.lss_card > .img {
+    background-image: url('../public/lss.jpeg');
+}
+.ssgt_card {
+    grid-area: ssgt;
+}
+.ssgt_card > .img {
+    background-image: url('../public/ssgt.jpeg');
+}
+.plague_card {
+    grid-area: plague;
+}
+.plague_card > .img {
+    background-image: url('../public/plague.jpeg');
+}
+/*------------------------- card -------------------------*/
 .card {
-    display: inline-block;
-    padding: 5% 4% 0 4%;
-    transition: all .6s;
-}
-
-/*------------------ card (inner Slider) ------------------*/
-.content {
-    position:absolute;
-    bottom: 28%;
-    padding-left: 30px;
-
-    font-size: 2.7em;
-    color: #fff;
-    text-shadow: 3px 2px 10px rgb(71, 71, 71);
+    display: grid;
+    grid-template-columns: 1fr 2.2fr 0.2fr;
+    grid-template-areas: 
+    "img con btn";
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 3%;
+    margin: 2% 3% 2% 3%;
 }
 .img {
-    border-radius: 20px;
+    grid-area: img;
+    border-radius: 50%;
+    background-size: cover;
+    box-shadow: 1px 1px 7px rgb(54, 54, 54);
+    width: 150px;
+    height: 150px;
 }
-.img:hover {
+.content {
+    grid-area: con;
+    text-align: left;
+    margin: 5% 3% 5% 7%;  /* 가운데 팀 정보 설명 */
+}
+.content:hover {
+    cursor: default;
+}
+.teamName { /* 팀 이름 */
+    display: inline-block;
+    font-family: 'S-CoreDream-3Light';
+    font-size: 2.4em;
+    color: #fff;
+    margin-bottom: 7%;
+}
+.teamEx { /* 팀 설명 */
+    color: #e7e7e7;
+    font-family: 'Pretendard-Regular';
+    font-size: .9em;
+}
+/*----------- 특정 팀 폰트 사이즈 조정 ----------*/
+.csh_card .teamEx, .kjy_card .teamEx {
+    font-size: .7em;
+} 
+.oye_card .teamEx {
+    font-size: .8em;
+}
+.oye_card .teamName {
+    font-size: 1.8em;
+}
+.rap_card .teamName {
+    font-size: 1.3em;
+}
+/*------------------------------------------*/
+.song { /* 곡명 */
+    font-family: 'InfinitySans-RegularA1';
+    font-style: italic;
+    font-size: 0.8rem;
+}
+.teamBtn {
+    grid-area: btn;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    padding: 3%;
+    margin-top: 100%;
+    outline: none;
+    color: transparent;
+    cursor: pointer;
+    border: 5px solid #fff;
+    background-color: rgb(140, 140, 140);
+    box-shadow: inset;
+    transition: all, .1s;
+
+}
+.teamBtn:checked {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    outline: none;
+    border: 7px solid #fff;
+    background-color: #D199BA;
+}
+
+/*------------------------- Final Vote Button -------------------------*/
+.voteBtn {
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 3px;
+    background-color: transparent;
+    font-size: 2em;
+    font-family: 'InfinitySans-RegularA1';
+    margin: 1% 0 1.5% 0;
+    padding: 1% 4% 1% 4%;
+    cursor: pointer;
+    transition: all .7s;
+}
+.voteBtn:hover {
+    color: #D199BA;
+    box-shadow: 200px 1px 70px 1px rgb(255, 255, 255) inset;
+}
+
+/*------------------ logIn/logOut/gps Button ------------------*/
+.kOut, .kIn, .gps {
+    border: none;
+    background-color: transparent;
+}
+.gps {
+    font-family: 'InfinitySans-RegularA1';
+    font-size: 1.5em;
+    padding: 1.5% 4% 1.5% 4%;
+    margin-top: 2%;
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 3px;
+    transition: all .7s;
+}
+.gps:hover {
+    color: #D199BA;
+    box-shadow: 300px 1px 70px 1px rgb(255, 255, 255) inset;
+}
+.kOut:hover, .kIn:hover, .gps:hover {
     cursor: pointer;
 }
-.img:hover:after {
+.kIn:active, .kOut:active, .gps:active {
+    background-color: #fff;
+}
+.kIn {
+    display: grid;
+    grid-template-columns: .2fr .6fr;
+    grid-template-areas: 
+    "logo txt";
+    margin: 1% 40% 0 40%;
+    background-color: #f5e01e;
+    border-radius: 5px;
+}
+.kInText {
+    grid-area: txt;
+    font-family: 'Pretendard-Regular';
+    font-size: 1.1rem;
+    padding: 6% 0 6% 0;
+}
+.logoWrapper {
+    grid-area: logo;
+}
+.Logo {
+    position: relative;
+    background-image: url('../public/Logo.png');
+    background-size: cover;
+    width: 30px;
+    height: 30px;
+    margin: 11% 0 0 4%;
+}
+.kOut {
+    padding: 0.5% 2% 0.5% 2%;
+    border: 1px solid rgb(38, 26, 26);
+    background-color: rgb(38, 26, 26);
+    border-radius: 3px;
+    font-size: 1.3em;
+    font-family: 'Pretendard-Regular';
+    margin: 2% 0 0% 0%;
+    color: #f5e01e;
+    transition: .3s;
+}
+.kOut:active {
+    border: 1px solid #f5e01e;
+    background-color: #f5e01e;
+    color: rgb(38, 26, 26);
+}
+.title {
+    margin-left: 5%;
+}
+
+.title, .hl1 {
+    font-family: 'GangwonEduPowerExtraBoldA';
+    font-size: 2.5rem;
+    color: #fff;
     display: inline;
 }
 
-.teamBtn {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    display: block;
-    position: absolute;
-    bottom: 120px;
-    margin-left: 3.9%;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    outline: none;
-    color: transparent;
-    cursor: pointer;
-    border: 3px solid #fff;
-    background-color: rgb(91, 91, 91);
-    box-shadow: inset;
-    transition: all, .1s;
+.title:hover {
+    cursor: default;
 }
-.teamBtn:hover, .teamBtn:checked {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    outline: none;
-    border: 5px solid #fff;
-    background-color: #D199BA;
+.hl1 {
+    color: #83a238;
+    font-size: 2.5rem;
 }
-.voteBtn:hover, .voteBtn:active {
-    color: #000;
-    background-color: #D199BA;
+.hl2 {
+    color: #cc0000;
 }
-.voteBtn {
-    color: #fff;
-    border: none;
-    background-color: #808080;
-    font-size: 2em;
-    margin: 10%;
-    padding: 1% 2% 1% 2%;
-    cursor: pointer;
-    transition: all, .4s;
-}
-
-
-
-
-/*------------------------ dots -----------------------*/
-.dots
-{
-    position: absolute;
-    bottom: 600px;
-    display: block;
-    padding: 0 6% 0 5%;
-    width: 100%;
-    list-style: none;
-    text-align: center;
-}
-.dots li
-{
-    position: relative;
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-}
-.dots li button
-{
-    display: block;
-    width: 20px;
-    height: 20px;
-    padding: 5px;
-    cursor: pointer;
-    color: transparent;
-    border: 0;
-    outline: none;
-    background: transparent;
-}
-.dots li button:hover,
-.dots li button:focus
-{
-    outline: none;
-}
-.dots li button:hover:before,
-.dots li button:focus:before
-{
-    transition: all 0.6s;
-    opacity: 1;
-}
-.dots li button:before
-{
-    font-family: 'slick';
-    font-size: 15px;
-    line-height: 20px;
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    content: '•';
-    text-align: center;
-    opacity: .25;
-    color: #000;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-li.slick-active button:before {
-    opacity: .75;
-    color: pink;
-  }
-
-
-
-
-
-
 
 /*--------------------- Media Query (Screen) ----------------------*/
+
 @media (max-width: 280px) { /* Galaxy Fold */
+    .container {
+        display: block;
+    }
+    .title {
+        display: inline-block;
+        font-size: 2em;
+    }
+    .gps {
+        margin: 6% 0 0 0;
+        font-size: 1em;
+    }
+    .hl {
+        font-size: 2rem;
+    }
+    .card {
+        padding: 3%;
+    }
+    .img {
+        height: 100px;
+        width: 100px;
+    }
+    .teamName {
+        font-size: 1.6rem;
+    }
+    .rap {
+        font-size: 1.3rem;
+    }
+    .teamBtn {
+        width: 37px;
+        height: 37px;
+        bottom: 7.5%;
+        padding: 30%;
+    }
+    .voteBtn {
+        background-color: transparent;
+        margin-top: 10%;
+        font-size: 1.5em;
+    }
+    .voteBtn:hover {
+        box-shadow: none;
+        color: #fff;
+    }
+    .ex { /* 로직 설명 문구 */
+        font-size: 1.3em;
+    }
+    /*---------- 상단 버튼들 ---------*/
+    .kOut {
+        font-size: 1rem;
+        margin: 4% 10% 3% 10%;
+        padding: 2% 3.5% 2% 3.5%;
+    }
+    .kIn {
+        margin: 3% 10% 0 10%;
+    }
 
 
 }
 
 @media (min-width: 281px) and (max-width: 375px) { /* iPhone SE & X*/
-
-
-
-}
-
-@media (min-width: 376px) and (max-width: 480px) { /* iPhone Pro*/
     .container {
-        padding: 20% 0 10% 0;
-    }
-    .card {
-        padding: 5%;
+        display: block;
     }
     .title {
+        display: inline-block;
         font-size: 2em;
-        margin-bottom: 20%;
     }
-    .dots {
-        bottom: -50px;
-
+    .gps {
+        margin: 6% 0 0 0;
+        font-size: 1em;
     }
-    .dots li {
-        width: 10px;
-        height: 10px;
-        margin: 1%;
+    .hl {
+        font-size: 2rem;
     }
-    .content {
-        padding-left: 10px;
-        font-size: 1.7em;
+    .card {
+        padding: 3%;
+    }
+    .img {
+        height: 100px;
+        width: 100px;
+    }
+    .teamName {
+        font-size: 1.6rem;
+    }
+    .rap {
+        font-size: 1.3rem;
     }
     .teamBtn {
-        width: 35px;
-        height: 35px;
-        bottom: 70px;
-        margin-left: 3.7%;
+        width: 37px;
+        height: 37px;
+        bottom: 7.5%;
+        padding: 30%;
     }
     .voteBtn {
-        margin-top: 40%;
-        font-size: 1.8em;
+        background-color: transparent;
+        margin-top: 10%;
+        font-size: 1.5em;
+    }
+    .voteBtn:hover {
+        box-shadow: none;
+        color: #fff;
+    }
+    .ex { /* 로직 설명 문구 */
+        font-size: 1.3em;
+    }
+    /*---------- 상단 버튼들 ---------*/
+    .kOut {
+        font-size: 1rem;
+        margin: 4% 10% 3% 10%;
+        padding: 2% 3.5% 2% 3.5%;
+    }
+    .kIn {
+        margin: 3% 10% 0 10%;
+    }
+}
+
+@media (min-width: 376px) and (max-width: 480px) { /* iPhone Pro */
+    .container {
+        display: block;
+    }
+    .title {
+        display: inline-block;
+        font-size: 2em;
+    }
+    .gps {
+        margin: 6% 0 0 0;
+        font-size: 1em;
+    }
+    .hl {
+        font-size: 2rem;
+    }
+    .card {
+        padding: 3%;
+    }
+    .img {
+        height: 100px;
+        width: 100px;
+    }
+    .teamName {
+        font-size: 1.6rem;
+    }
+    .rap {
+        font-size: 1.3rem;
+    }
+    .teamBtn {
+        width: 37px;
+        height: 37px;
+        bottom: 7.5%;
+        padding: 30%;
+    }
+    .voteBtn {
+        background-color: transparent;
+        margin-top: 10%;
+        font-size: 1.5em;
+    }
+    .voteBtn:hover {
+        box-shadow: none;
+        color: #fff;
+    }
+    .ex { /* 로직 설명 문구 */
+        font-size: 1.3em;
+    }
+    /*---------- 상단 버튼들 ---------*/
+    .kOut {
+        font-size: 1rem;
+        margin: 4% 10% 3% 10%;
+        padding: 2% 3.5% 2% 3.5%;
+    }
+    .kIn {
+        margin: 3% 10% 0 10%;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 767px) { 
+    .container {
+        display: block;
+    }
+    .title {
+        display: inline-block;
+        font-size: 2em;
+    }
+    .gps {
+        margin: 6% 0 0 0;
+        font-size: 1em;
+    }
+    .hl {
+        font-size: 2rem;
+    }
+    .card {
+        padding: 3%;
+    }
+    .img {
+        height: 100px;
+        width: 100px;
+    }
+    .teamName {
+        font-size: 1.6rem;
+    }
+    .rap {
+        font-size: 1.3rem;
+    }
+    .teamBtn {
+        width: 37px;
+        height: 37px;
+        bottom: 7.5%;
+        padding: 30%;
+    }
+    .voteBtn {
+        background-color: transparent;
+        margin-top: 10%;
+        font-size: 1.5em;
+    }
+    .voteBtn:hover {
+        box-shadow: none;
+        color: #fff;
+    }
+    .ex { /* 로직 설명 문구 */
+        font-size: 1.3em;
+    }
+    /*---------- 상단 버튼들 ---------*/
+    .kOut {
+        font-size: 1rem;
+        margin: 4% 10% 3% 10%;
+        padding: 2% 3.5% 2% 3.5%;
+    }
+    .kIn {
+        margin: 3% 10% 0 10%;
+
     }
 
-}
-
-@media (min-width: 481px) and (max-width: 819px) { 
-
 
 }
 
-@media (min-width: 820px) and (max-width: 1023px) { /* iPad Air */
+@media (min-width: 768px) and (max-width: 1023px) { /* iPad Air */
+
+}
+
+@media (min-width: 1024px) and (max-width: 1280px) { /* iPad Pro */
 
 
 }
 
-@media (min-width: 1024px) and (max-width: 1366px) { /* iPad Pro */
 
-}
 
-@media (min-width: 1377px) { /* PC */
+@media (min-width: 1281px) { /* PC */
 
  
 }

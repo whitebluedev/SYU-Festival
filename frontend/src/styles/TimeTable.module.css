@@ -1,0 +1,124 @@
+.wrapper {
+    background: linear-gradient(to left, #BC7097, #E6D0DB);
+}
+.table {
+    display: inline-block;
+    border: 1px;
+    margin: 3%;
+    border-collapse: collapse;
+}
+
+.title {
+    font-family: 'GangwonEduPowerExtraBoldA';
+    font-size: 3rem;
+    color: #fff;
+    margin: 3% 0 1% 0;
+}
+.title:hover {
+    cursor: default;
+}
+
+
+/*-------------------- Table --------------------*/
+.td, .th {
+    border: 1px solid rgb(184, 184, 184);
+    padding: 2% 0 2% 0;
+    background-color: #fff;
+    font-size: 1.1em;
+    width: 25%;
+}
+.th {
+    font-family: 'S-CoreDream-3Light';
+    background-color: #BC7097;
+    color: #fff;
+    border: none;
+    border-bottom: 1px solid rgb(49, 49, 49);
+    border-radius: 7px 7px 0 0;
+
+    font-size: 1.2em;
+}
+.th:hover {
+    cursor: default;
+}
+.date {
+    font-family: 'S-CoreDream-3Light';
+    font-size: 1.2em;
+    color: #fff;
+    padding-bottom: 3%;
+}
+.date:hover {
+    cursor: default;
+}
+.time {
+    width: 15%;
+}
+.thuTable {
+    padding-bottom: 5%;
+}
+
+/*--------------------------- Media Query ---------------------------*/
+@media (max-width: 280px) { /* Galaxy Fold */
+    .title {
+        font-size: 2em;
+    }
+    .wed, .thu {
+        font-size: 1.4rem;
+    }
+    .td {
+        font-size: 1rem;
+    }
+
+
+}
+
+@media (min-width: 281px) and (max-width: 375px) { /* iPhone SE & X*/
+    .title {
+        font-size: 2em;
+    }
+    .wed, .thu {
+        font-size: 1.4rem;
+    }
+    .td {
+        font-size: 1rem;
+    }
+    
+}
+
+@media (min-width: 376px) and (max-width: 480px) { /* iPhone Pro*/
+    .title {
+        font-size: 2em;
+    }
+    .wed, .thu {
+        font-size: 1.4rem;
+    }
+    .td {
+        font-size: 1rem;
+    }
+    
+
+}
+
+@media (min-width: 481px) and (max-width: 767px) { 
+    .title {
+        font-size: 2em;
+    }
+    .wed, .thu {
+        font-size: 1.4rem;
+    }
+    .td {
+        font-size: 1rem;
+    }
+
+}
+
+@media (min-width: 768px) and (max-width: 1023px) { /* iPad Air */
+
+}
+
+@media (min-width: 1024px) and (max-width: 1280px) { 
+
+}
+
+@media (min-width: 1281px) { /* iPad Pro & Desktop & Laptop */
+
+}

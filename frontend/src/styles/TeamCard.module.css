@@ -1,0 +1,223 @@
+/*------------------------- card -------------------------*/
+.card {
+    display: grid;
+    grid-template-columns: .1fr .8fr 1fr .1fr;
+    grid-template-areas: 
+    ". img con .";
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 1%;
+}
+.img {
+    grid-area: img;
+    float: right;
+    border-radius: 50%;
+    background-size: cover;
+    box-shadow: 1px 1px 5px rgb(64, 49, 49);
+    margin-left: 60%;
+    width: 200px;
+    height: 200px;
+}
+.content {
+    grid-area: con;
+    text-align: left;
+    margin: 10% 3% 5% 0;
+}
+.content:hover {
+    cursor: default;
+}
+.teamName { /* 팀 이름 */
+    display: inline-block;
+    font-family: 'GangwonEduPowerExtraBoldA';
+    font-style: italic;
+    font-size: 3em;
+    color: rgb(255, 255, 255);
+    margin-bottom: 3%;
+}
+.rap {
+    font-size: 2.4em;
+}
+
+.song { /* 곡명 */
+    font-family: 'InfinitySans-RegularA1';
+    font-style: italic;
+    font-size: 1.5rem;
+}
+/*------------------------- rank -------------------------*/
+.rank * {
+    font-family: 'ChosunSg';
+}
+
+
+/*------------------------- Img URL -------------------------*/
+.rap_card > .img {
+    background-image: url('../public/rap.jpeg');
+}
+.oye_card > .img {
+    background-image: url('../public/open_your_eyes.jpeg');
+}
+.jja_card > .img {
+    background-image: url('../public/jja.jpeg');
+}
+.csh_card > .img {
+    background-image: url('../public/cant_sing_high.jpeg');
+}
+.dm_card > .img {
+    background-image: url('../public/dm.jpeg');
+}
+.kjy_card > .img {
+    background-image: url('../public/kjy.jpeg');
+}
+.lss_card > .img {
+    background-image: url('../public/lss.jpeg');
+}
+.ssgt_card > .img {
+    background-image: url('../public/ssgt.jpeg');
+}
+.plague_card > .img {
+    background-image: url('../public/plague.jpeg');
+}
+
+/*---------------------- Media Query (Screen) ----------------------*/
+@media (max-width: 280px) { /* Galaxy Fold */
+    .card {
+        display: grid;
+        grid-template-columns: .3fr 2fr;
+        grid-template-areas: 
+        "img con";
+        margin: 0 0 10% 0;
+    }
+    .content {
+        margin: 20% 0 0 6%;
+    }
+    .img {
+        width: 120px;
+        height: 120px;
+        margin: 0;
+    }
+    .teamName {
+        font-size: 1.5rem;
+    }
+    .rap {
+        font-size: 1.2rem;
+    }
+    .song {
+        font-size: 1rem;
+    }
+
+
+}
+
+@media (min-width: 281px) and (max-width: 375px) { /* iPhone SE & X*/
+    .card {
+        display: grid;
+        grid-template-columns: .3fr 2fr;
+        grid-template-areas: 
+        "img con";
+        margin: 0 0 10% 0;
+    }
+    .content {
+        margin: 20% 0 0 6%;
+    }
+    .img {
+        width: 120px;
+        height: 120px;
+        margin: 0;
+    }
+    .teamName {
+        font-size: 1.5rem;
+    }
+    .rap {
+        font-size: 1.1rem;
+    }
+    .song {
+        font-size: 1rem;
+    }
+
+}
+
+@media (min-width: 376px) and (max-width: 480px) { /* iPhone Pro */
+    .card {
+        display: grid;
+        grid-template-columns: .3fr 2fr;
+        grid-template-areas: 
+        "img con";
+        margin: 0 0 10% 0;
+    }
+    .content {
+        margin: 20% 0 0 6%;
+    }
+    .img {
+        width: 120px;
+        height: 120px;
+        margin: 0;
+    }
+    .teamName {
+        font-size: 1.5rem;
+    }
+    .rap {
+        font-size: 1.2rem;
+    }
+    .song {
+        font-size: 1rem;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 767px) { 
+    .card {
+        display: grid;
+        grid-template-columns: .3fr 2fr;
+        grid-template-areas: 
+        "img con";
+        margin: 0 0 10% 0;
+    }
+    .content {
+        margin: 20% 0 0 6%;
+    }
+    .img {
+        width: 120px;
+        height: 120px;
+        margin: 0;
+    }
+    .teamName {
+        font-size: 1.5rem;
+    }
+    .rap {
+        font-size: 1.2rem;
+    }
+    .song {
+        font-size: 1rem;
+    }
+
+}
+
+@media (min-width: 768px) and (max-width: 1023px) { /* iPad Air */
+    .img {
+        margin:0
+    }
+    .teamName {
+        font-size: 2.7rem;
+        margin-bottom: 10%;
+    }
+    .rap {
+        font-size: 2.1rem;
+    }
+
+
+
+
+}
+
+@media (min-width: 1024px)  { /* iPad Pro */
+    .img {
+        margin-left:30%;
+    }
+    .teamName {
+        font-size: 2.7rem;
+        margin-bottom: 10%;
+    }
+    .rap {
+        font-size: 2.1rem;
+    }
+
+}

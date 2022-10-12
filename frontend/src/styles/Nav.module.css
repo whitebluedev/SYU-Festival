@@ -1,50 +1,100 @@
 .container {
-    padding: 3% 3% 0 3%;
+    padding: 3% 5% 2% 5%;
+    margin-bottom: 3%;
+    background: linear-gradient(to left, #BC7097, #E6D0DB)
 }
 
 .home {
+    font-family: 'SF_HambakSnow';
     float: left;
     display: inline;
-    font-size: 1.5em;
-    /*color: #fff;*/
+    font-size: 1.8em;
+    color: #fff;
+    text-shadow: 2px 2px 30px rgb(138, 138, 138);
+    transition: all .4s;
 }
 .home:hover {
     cursor: pointer;
 }
 
-.menuicon {
-    display: none;
-}
-.sidebar {
+.side {
     display: inline;
     float: right;
 }
+.side:hover, .menuico:hover {
+    cursor: default;
+}
 .vote, .timetable, .map {
-    font-size: 1.5em;
-    transition: all 0.4s;
-    /*color: #fff;*/
+    font-family: 'S-CoreDream-3Light';
+    font-size: 1.8em;
+    transition: 0.4s;
+    color: #fff
 }
 .vote:hover, .timetable:hover, .map:hover {
     cursor: pointer;
-    color: #000;
+    color: rgb(68, 68, 68);
+}
+.navHr {
+    background-color: #fff;
+    border: none;
+    height: 1px;
+    margin: 0 auto;
+}
+
+.menuicon {
+    display: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 30px;
+    height: 25px;
+    position: fixed;
+    right: 4%;
+    filter: invert(100%);
+    background-image: url('../public/menu.png');
+    background-size: contain;
+    cursor: pointer;
+    transition: .3s;
+}
+.sidebar {
+    width: 300px;
+    height: 100%;
+    background: rgb(245, 245, 245);
+    opacity: 93%;
+    position: fixed; 
+    top: 0;
+    right: -300px;
+    z-index:1;
+    transition: all .35s;
+}
+.menuicon:checked + div {
+    right: 0;
+}
+.menuicon:checked {
+    z-index: 2;
+    filter: invert(30%);
+    background-image: url('../public/X.png');
+    width: 25px;
+}
+.sidebarr {
+    margin: 30% 50% 0 0;
+}
+.v, .t, .m {
+    font-family: 'S-CoreDream-3Light';
+    font-size: 1.5em;
+    margin: 7% 0 7% 0;
+    transition: .3s;
+}
+.v:hover, .t:hover, .m:hover {
+    color: #cb7fa6;
 }
 
 
 /*--------------------- Media Query (Screen) ----------------------*/
 @media (max-width: 280px) { /* Galaxy Fold */
-
-
-}
-
-@media (min-width: 281px) and (max-width: 375px) { /* iPhone SE & X*/
-    .home {
-        font-size: 1.3em;
-        margin-left: 7%;
+    .container {
+        margin: 0 auto;
+        padding-bottom: 3%;
     }
-
-}
-
-@media (min-width: 376px) and (max-width: 480px) { /* iPhone Pro*/
     .home {
         margin-top: 3%;
         font-size: 1.3em;
@@ -53,28 +103,100 @@
         display: none;
     }
     .menuicon {
-        font-size: 2.8em;
-        display: inline;
+        display: inline-block;
     }
-    .sidebar {
+    .side {
         margin-top: 2%;
     }
-}
-
-@media (min-width: 481px) and (max-width: 819px) { 
-
-
-}
-
-@media (min-width: 820px) and (max-width: 1023px) { /* iPad Air */
+    .navHr {
+        margin: 3% 0 0 0;
+    }
 
 }
 
-@media (min-width: 1024px) and (max-width: 1366px) { /* iPad Pro */
+@media (min-width: 281px) and (max-width: 375px) { /* iPhone SE & X*/
+    .container {
+        margin: 0 auto;
+        padding-bottom: 3%;
+        
+    }
+    .home {
+        margin-top: 3%;
+        font-size: 1.3em;
+    }
+    .vote, .timetable, .map {
+        display: none;
+    }
+    .menuicon {
+        display: inline-block;
+    }
+    .side {
+        margin-top: 2%;
+    }
+    .navHr {
+        margin: 3% 0 0 0;
+    }
+    
 
 }
 
-@media (min-width: 1377px) { /* PC */
+@media (min-width: 376px) and (max-width: 480px) { /* iPhone Pro*/
+    .container {
+        margin: 0 auto;
+        padding-bottom: 3%;
+    }
+    .home {
+        margin-top: 3%;
+        font-size: 1.3em;
+    }
+    .vote, .timetable, .map {
+        display: none;
+    }
+    .menuicon {
+        display: inline-block;
+    }
+    .side {
+        margin-top: 2%;
+    }
+    .navHr {
+        margin: 3% 0 0 0;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+    .container {
+        margin: 0 auto;
+        padding-bottom: 3%;
+    }
+    .home {
+        margin-top: 3%;
+        font-size: 1.3em;
+    }
+    .vote, .timetable, .map {
+        display: none;
+    }
+    .menuicon {
+        display: inline-block;
+    }
+    .side {
+        margin-top: 2%;
+    }
+    .navHr {
+        margin: 3% 0 0 0;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) { /* iPad Air */
+    .vote, .timetable, .map, .home {
+        font-size: 1.4em;
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1280px) { /* iPad Pro */
+
+}
+
+@media (min-width: 1281px) { /* PC */
 
 
 }

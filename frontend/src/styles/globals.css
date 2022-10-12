@@ -1,6 +1,6 @@
 @font-face {
-    font-family: 'Eoe_Zno_EB';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_eight@1.0/Eoe_Zno_EB.woff') format('woff');
+    font-family: 'IBMPlexSansKR-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/IBMPlexSansKR-Regular.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
@@ -16,49 +16,107 @@
     font-weight: normal;
     font-style: normal;
 }
-
+@font-face {
+    font-family: 'SF_HambakSnow';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2106@1.1/SF_HambakSnow.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'GangwonEduPowerExtraBoldA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEduPowerExtraBoldA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'InfinitySans-RegularA1';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/InfinitySans-RegularA1.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'S-CoreDream-3Light';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Happiness-Sans-Title';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2205@1.0/Happiness-Sans-Title.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'MICEGothic Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-01@1.0/MICEGothic Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
 * {
     font-size: 14px;
-    font-family: 'Eoe_Zno_EB';
+    font-family: 'IBMPlexSansKR-Regular';
     box-sizing: border-box;
     text-align: center;
 }
 
-.main {
-    margin: 0 auto;
-    padding-top: 10px;
-    padding-bottom: 0px;
+
+.wrapper {
+    background: linear-gradient(to left, #BC7097, #E6D0DB);
 }
 
 .footer {
+    color: #fff;
     width: 100%;
-    padding: 0%;
-    font-size: 0.7rem;
+    margin: 0% auto;
+    padding: 2% 0 2% 0;
+    font-size: 1rem;
     font-family: 'ChosunSg';
+    background: linear-gradient(to left, #BC7097, #E6D0DB)
+}
+.footer:hover {
+    cursor: default;
 }
 
 
 
 /*--------------------------- Media Query ---------------------------*/
 @media (max-width: 280px) { /* Galaxy Fold */
-
-
+    .footer {
+        font-size: 0.8rem;
+    }
 }
 
 @media (min-width: 281px) and (max-width: 375px) { /* iPhone SE & X*/
-    
+    .footer {
+        font-size: 0.8rem;
+    }
 }
 
 @media (min-width: 376px) and (max-width: 480px) { /* iPhone Pro*/
-    
-
+    .footer {
+        font-size: 0.8rem;
+    }
 }
 
 @media (min-width: 481px) and (max-width: 767px) { 
+    .footer {
+        font-size: 0.8rem;
+    }
 
 }
 
 @media (min-width: 768px) and (max-width: 1023px) { /* iPad Air */
+    .footer {
+        font-size: 0.8rem;
+        padding-top: 20%;
+    }
+    
 
 }
 

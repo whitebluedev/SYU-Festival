@@ -1,137 +1,138 @@
+/*--------------------------- Wrapper ---------------------------*/
 .wrapper {
-    background-size: 20%;
-    padding-top: 0%; /* 캐러셀 - 메뉴바 간격 */
-}
-
-.container {
-/* 글자 애니메이션 그리드 */
-
-}
-/*--------------------------- Carousel ---------------------------*/
-.carousel {
-    background-position: center;
-    background-image: url(../public/red.png);
-    padding-top: 30%;
-    padding-bottom: 25%;
-}
-.carouselBtn {
-    position: relative;
-    float: left;
-    margin-left: 10%;
-    margin-top: 15%;
-}
-.timetable, .map, .vote {
-    margin: 70%;
-    padding: 60%;
-    padding-top: 10%;
-    padding-bottom: 10%;
-    border-radius: 50%;
-    background-color: #808080;
-    color: #808080;
-    box-shadow: inset 1px 2px 2px rgb(0, 0, 0);
-    transition: all 0.7s;
-}
-.timetable:hover, .map:hover, .vote:hover {
-    cursor: pointer;
-    background-color: #fff;
-    color: #fff;
-}
-.map:active, .vote:active {
-    background-color: #fff;
-    color: #fff;
-}
-.timetable:active {
-    background-image: url(../public/red.png);
-    background-color: #fff;
-    color: #fff;
+    width: 100%;
+    background: linear-gradient(to left, #BC7097, #E6D0DB);
 }
 
 /*---------------------------- Footer2 ----------------------------*/
 .hangyeol {
-    margin-top: 2%;
     padding: 1%;
+    color: #fff;
+    text-shadow: 2px 2px 5px rgb(108, 108, 108);
 }
-.hr {
-    margin-left: 20%;
-    margin-right: 20%;
-    margin-bottom: 3%;
-    color: #A6A6A6;
+.hangyeol:hover {
+    cursor: default;
+}
+.indexHr {
+    margin: 0 0 3% 0;
+    background-color: #ffffff;
+    height: 1px;
+    border: none;
 }
 .syu {
-    font-family: 'NEXON Lv2 Gothic';
+    font-family: 'S-CoreDream-3Light';
     font-size: 2em;
     margin-bottom: 1%;
-    color: #A6A6A6;
 }
 .location {
-    font-family: 'NEXON Lv2 Gothic';
+    font-family: 'Pretendard-Regular';
     font-size: 1.3em;
-    margin-top: 2%;
-    color: #A6A6A6;
+    margin-top: 1%;
+    text-shadow: none;
 }
 .who {
-    font-family: 'NEXON Lv2 Gothic';
+    font-family: 'S-CoreDream-3Light';
     font-size: 0.8em;
-    color: #808080;
-    font-weight: bold;
-
 }
 
-/*---------------------- Media Query () ----------------------*/
+/*---------------------------- Main Slider ----------------------------*/
+.main1 {
+    background-image: url('../public/re-wind_pc.jpeg');
+    background-size: cover;
+    width: 1000px;
+    height: 732px;
+    border: none;
+}
+.main2 {
+    background-image: url('../public/omg_pc.jpeg');
+    background-size: cover;
+    width: 1000px;
+    height: 732px;
+    border: none;
+}
+
+
 
 
 
 /*---------------------- Media Query (Screen) ----------------------*/
 @media (max-width: 280px) { /* Galaxy Fold */
+    .main1 {
+        background-image: url('../public/re-wind_mob.jpeg');
+    }
+
+    .main2 {
+        background-image: url('../public/omg_mob.jpeg');
+    }
+    .main1, .main2 {
+        width: 300px;
+        height: 790px;
+    }
 
 
 }
 
 @media (min-width: 281px) and (max-width: 375px) { /* iPhone SE & X*/
+    .main1 {
+        background-image: url('../public/re-wind_mob.jpeg');
+    }
 
-}
+    .main2 {
+        background-image: url('../public/omg_mob.jpeg');
+    }
+    .main1, .main2 {
+        width: 370px;
+        height: 730px;
 
-@media (min-width: 376px) and (max-width: 480px) { /* iPhone Pro*/
-    .carousel {
-        background-size: 100%;
-        padding-top: 85%;
-        padding-bottom: 100%;
-    }
-    .hangyeol {
-        padding: 2%;
-    }
-    .syu {
-        font-size: 0.9em;
-    }
-    .location {
-        font-size: 0.7em;
-    }
-    .carouselBtn {
-        margin-top: 90%;
-        margin-left: 6%;
     }
 
 }
 
-@media (min-width: 481px) and (max-width: 819px) { 
-    .carousel {
-        background-size: 90%;
+@media (min-width: 376px) and (max-width: 480px) { /* iPhone Pro */
+    .main1 {
+        background-image: url('../public/re-wind_mob.jpeg');
     }
 
-}
-
-@media (min-width: 820px) and (max-width: 1023px) { /* iPad Air */
-    .carousel {
-        background-size: 100%;
+    .main2 {
+        background-image: url('../public/omg_mob.jpeg');
     }
-}
-
-@media (min-width: 1024px) and (max-width: 1366px) { /* iPad Pro */
-    .carousel {
-        background-size: 100%;
+    .main1, .main2 {
+        height: 760px;
+        width: 350px;
     }
 }
 
-@media (min-width: 1377px) { /* PC */
+@media (min-width: 481px) and (max-width: 767px) { 
+    .main1 {
+        background-image: url('../public/re-wind_mob.jpeg');
+    }
+    .main2 {
+        background-image: url('../public/omg_mob.jpeg');
+    }
+    .main1, .main2 {
+        height: 850px;
+    }
 
+
+
+
+}
+
+@media (min-width: 768px) and (max-width: 1023px) { /* iPad Air */
+    .main1, .main2 {
+        width: 280px;
+        height: 420px;
+    }
+
+
+}
+
+@media (min-width: 1024px) and (max-width: 1280px) { /* iPad Pro */
+    .main1, .main2 {
+        width: 380px;
+        height: 530px;
+    }
+}
+
+@media (min-width: 1281px) { /* PC */
 }

@@ -1,37 +1,41 @@
-import Carousel from 'react-material-ui-carousel'
+import React from "react"
 import css from "../styles/Index.module.css"
-
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
 
 
 export default function Main() {
+  const setting = {
+    dots: true,
+    infinite: true,
+    autoplaySpeed:6000,
+    speed: 2000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay:true,
+    fade: true,
+    pauseOnHover: false,
+    arrows: false,
+  };
+
+
   return (
-    <div>
       <div className={css.wrapper}>
-        <div className={css.container}>
-          {/* Carousel */}
-          <div className={css.carousel}> 
-            <div className={css.carouselBtn}>
-              <span className={css.timetable}>.</span>
-              <span className={css.map}>.</span>
-              <span className={css.vote}>.</span>
-            </div>
-            <div className={css.gateway}>
+        <Slider {...setting}>
+          <div className={css.main1}></div>
+          <div className={css.main2}></div>
 
-            </div>
-          </div>
-        </div>
+        </Slider>
 
-        {/* Footer2 */}
-        <div className={css.hangyeol}>
-          <div className={css.syu}>
-            <hr className={css.hr}/>
-            <span className={css.who}>주최</span> 삼육대학교 &nbsp; 
-            <span className={css.who}>주관</span> 제62대 한결 총학생회
-          </div>
-          <div className={css.location}>서울특별시 노원구 화랑로 815</div>
-        </div>
+
+      <br/>
       </div>
-   </div>
+
+
+ 
+
+
   )
 }
 
