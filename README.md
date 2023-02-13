@@ -2,9 +2,9 @@
 
 <br/>
 
-`Sahmyook Univ. Rewind - Festival Proj. 2022`
+`Sahmyook Univ. Re-wind Festival Proj. 2022`
 
-Thank you to the student council for giving us the opportunity.
+Thank you to the SYU Student Council for giving us the opportunity.
 
 2022.9.1 ~ 2022.10.4
 
@@ -34,9 +34,9 @@ Thank you to the student council for giving us the opportunity.
 
 <img height="64" width="64" src="https://cdn.simpleicons.org/Cloudflare/" /> Cloudflare
 
-<img height="64" width="64" src="https://conoha.jp/common_38448/images/logo_conoha.svg" /> Conoha
+<img height="64" width="64" src="https://conoha.jp/common_38448/images/logo_conoha.svg" /> Conoha - sub
 
-<img height="64" width="64" src="https://cdn.simpleicons.org/Vultr/" /> Vultr
+<img height="64" width="64" src="https://cdn.simpleicons.org/Vultr/" /> Vultr - main
 
 <br/>
 
@@ -92,13 +92,13 @@ Thank you to the student council for giving us the opportunity.
 
 <img height="64" width="64" src="https://cdn.simpleicons.org/Windows/" /> Windows 10
 
-<img height="64" width="64" src="https://cdn.simpleicons.org/macOS/" /> macOS
+<img height="64" width="64" src="https://cdn.simpleicons.org/macOS/white" /> macOS
 
 <img height="64" width="64" src="https://cdn.simpleicons.org/Ubuntu/" /> Ubuntu
 
 <br/>
 
-# Etc Envirnoment
+# Etc Environment
 
 <br/>
 
