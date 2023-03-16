@@ -8,7 +8,7 @@ Thank you to the SYU Student Council for giving us the opportunity.
 
 2022.9.1 ~ 2022.10.4
 
-[@waeandway](https://github.com/waeandway)
+[@wayandway](https://github.com/wayandway)
 
 - Project Manager
 - DNS & Hosting (Contribution)
